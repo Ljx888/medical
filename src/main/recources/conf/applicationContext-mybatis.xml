@@ -25,7 +25,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
         <!-- 配置别名 -->
         <property name="typeAliasesPackage" value="com.gx.wuzhou.medical.domain"></property>
         <!-- 配置mabatis映射mapper文件 -->
-        <property name="mapperLocations" value="classpath*:com/gx/wuzhou/medical/mapper/xml/*.xml"></property>
+        <property name="mapperLocations" value="classpath*:mapper/*.xml"></property>
     </bean>
 
     <!-- 配置mybatis映射接口文件 -->

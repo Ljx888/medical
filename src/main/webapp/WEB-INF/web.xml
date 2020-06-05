@@ -6,15 +6,15 @@
   </welcome-file-list>
   <!-- 配置文件加载器 -->
   <filter>
-    <filter-name>charFilter</filter-name>
+    <filter-name>characterEncodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
     <init-param>
       <param-name>encoding</param-name>
-      <param-value>utf-8</param-value>
+      <param-value>UTF-8</param-value>
     </init-param>
   </filter>
   <filter-mapping>
-    <filter-name>charFilter</filter-name>
+    <filter-name>characterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
@@ -29,7 +29,7 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath*:conf/applicationContext-*.xml</param-value>
+      <param-value>classpath*:conf/applicationContext-springmvc.xml</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
