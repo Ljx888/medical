@@ -11,16 +11,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>课堂考勤系统</title>
-    <link rel="stylesheet" href="./css/pintuer.css">
-    <link rel="stylesheet" href="./css/admin.css">
-    <link rel="shortcut icon" href="./images/logo.jpg">
-    <script src="./js/jquery.js"></script>
+    <title>慢性病报销系统V1.0</title>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
 </head>
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
     <div class="logo margin-big-left fadein-top">
-        <h1><img src="../images/logo.jpg" class="radius-circle rotate-hover" height="50" alt="" />课堂考勤系统</h1>
+        <h1><img src="/images/logo.jpg" class="radius-circle rotate-hover" height="50" alt="" />慢性病报销系统</h1>
     </div>
     <div class="head-l" ><a href="" target="_blank" style="color:#FFF" ><span class="icon-user"></span> 欢迎 admin</a>&nbsp;&nbsp;<a class="button button-little bg-green" href="" target="_blank" ><span class="icon-home"></span> 首页</a> &nbsp;&nbsp;<a class="button button-little bg-red" href="../login.html"><span class="icon-power-off"></span> 退出登录</a> </div>
 </div>
@@ -30,7 +30,7 @@
 
     <h2><span class="icon-user"></span>基本设置</h2>
     <ul style="display:block">
-        <li><a href="../admin/addstudent.html" target="right"><span class="icon-caret-right"></span>网站设置</a></li>
+        <li><a href="page/role/list" target="right"><span class="icon-caret-right"></span>角色管理</a></li>
         <li><a href="../pass.html" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
         <li><a href="../page.html" target="right"><span class="icon-caret-right"></span>单页管理</a></li>
         <li><a href="../adv.html" target="right"><span class="icon-caret-right"></span>首页轮播</a></li>

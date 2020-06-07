@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.SysRoleMapper">
+    <resultMap id="SysRoleResult" type="SysRole">
+        <result property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+
+    <select id="selectSysRoleList" resultMap="SysRoleResult" resultType="SysRole">
+        select * from t_role
+        <where>
+            <if test="roleId != null and roleId != ''">role_id = #{roleId}</if>
+            <if test="roleName != null and roleName != ''">AND role_name = #{roleName}</if>
+        </where>
+    </select>
+
+    <insert id="insertRole" parameterType="SysRole">
+        insert into t_role(
+        <if test="roleId != null and roleId != ''">role_id,</if>
+        <if test="roleName != null and roleName != ''">role_name</if>
+        )value (
+        <if test="roleId != null and roleId != ''">#{roleId},</if>
+        <if test="roleName != null and roleName != ''">#{roleName}</if>
+        )
+    </insert>
+</mapper>

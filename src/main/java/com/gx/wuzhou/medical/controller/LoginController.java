@@ -10,14 +10,11 @@
  */
 package com.gx.wuzhou.medical.controller;
 
-import com.gx.wuzhou.medical.core.util.web.BaseController;
 import com.gx.wuzhou.medical.domain.SysUser;
 import com.gx.wuzhou.medical.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -28,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0.0
  */
 @Controller
-public class LoginController extends BaseController {
+public class LoginController {
     @Autowired
     private LoginService loginService;
 
