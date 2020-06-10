@@ -32,10 +32,49 @@ public interface ISysMenuService {
     public List<SysMenu> selectMenuAll();
 
     /**
+     * 查询菜单信息
+     *
+     * @return
+     */
+    public List<SysMenu> selectMenuList(SysMenu menu);
+
+    /**
+     * 查询菜单
+     *
+     * @param menuId
+     * @return
+     */
+    public SysMenu selectMenu(String menuId);
+
+    /**
      *根据角色编号查询
      *
      * @param role
      * @return
      */
     public List<Ztree> roleMenuZtree(SysRole role);
+
+    /**
+     * 添加菜单
+     *
+     * @param menu
+     * @return
+     */
+    public int saveMenu(SysMenu menu);
+
+    /**
+     * 修改菜单
+     *
+     * @param menu
+     * @return
+     */
+    public int updateMenu(SysMenu menu);
+
+    /**
+     * 删除
+     *
+     * @param menuId
+     * @return
+     */
+    public int delete(String menuId);
 }

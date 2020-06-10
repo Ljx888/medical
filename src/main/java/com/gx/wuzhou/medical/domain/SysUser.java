@@ -28,6 +28,8 @@ public class SysUser extends BaseUtil {
     private Integer status;  //是否启用
     private String agenCode; //农合机构
 
+    private Institution init;
+
     public Integer getId() {
         return id;
     }
@@ -74,6 +76,14 @@ public class SysUser extends BaseUtil {
 
     public void setAgenCode(String agenCode) {
         this.agenCode = agenCode;
+    }
+
+    public Institution getInit() {
+        return init;
+    }
+
+    public void setInit(Institution init) {
+        this.init = init;
     }
 
     @Override

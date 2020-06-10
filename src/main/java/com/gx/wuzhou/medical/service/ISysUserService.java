@@ -12,6 +12,8 @@ package com.gx.wuzhou.medical.service;
 
 import com.gx.wuzhou.medical.domain.SysUser;
 
+import java.util.List;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈〉
@@ -21,4 +23,10 @@ import com.gx.wuzhou.medical.domain.SysUser;
  * @since 1.0.0
  */
 public interface ISysUserService {
+    /**
+     * 查询用户全部数据
+     *
+     * @return
+     */
+    public List<SysUser> selectUserList(SysUser user);
 }

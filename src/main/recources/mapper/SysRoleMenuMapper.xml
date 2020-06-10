@@ -15,4 +15,12 @@
             (#{item.roleId},#{item.menuId})
         </foreach>
     </insert>
+
+    <delete id="deleteRoleMenuId" parameterType="String">
+        delete from t_role_menu where role_id = #{roleId}
+    </delete>
+
+    <delete id="deleteMenuRoleId" parameterType="String">
+        delete from t_role_menu where menu_id = #{menuId}
+    </delete>
 </mapper>

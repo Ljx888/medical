@@ -20,6 +20,19 @@
         order by menu_pid, level
     </select>
 
+    <select id="selectMenuList" resultMap="SysMenuResult" resultType="SysMenu">
+        <include refid="selectMenuVo"/>
+        <where>
+            <if test="menuId != null and menuId != ''">menu_id = #{menuId}</if>
+            <if test="menuName != null and menuName != ''">menu_name = #{menuName}</if>
+        </where>
+    </select>
+
+    <select id="selectMenu" resultMap="SysMenuResult" resultType="SysMenu">
+        <include refid="selectMenuVo"/>
+        where menu_id = #{menuId}
+    </select>
+
     <select id="selectRoleTree" parameterType="String" resultType="String">
         select concat(m.menu_id) as perms
 		from t_menu m
@@ -27,4 +40,36 @@
 		where rm.role_id = #{roleId}
 		order by m.menu_pid, m.level
     </select>
+
+    <insert id="saveMenu" parameterType="SysMenu">
+        insert into t_menu(
+            <if test="menuId != null and menuId != null">menu_id,</if>
+            <if test="menuName != null and menuName != null">menu_name,</if>
+            <if test="menuPid != null and menuPid != ''">menu_pid,</if>
+            <if test="url != null and url != ''">url,</if>
+            <if test="level != null and level != ''">level</if>
+        )value (
+            <if test="menuId != null and menuId != null">#{menuId},</if>
+            <if test="menuName != null and menuName != null">#{menuName},</if>
+            <if test="menuPid != null and menuPid != ''">#{menuPid},</if>
+            <if test="url != null and url != ''">#{url},</if>
+            <if test="level != null and level != ''">#{level}</if>
+        )
+    </insert>
+
+    <update id="updateMenu" parameterType="SysMenu">
+        update t_menu
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="menuName != null and menuName != null">menu_name=#{menuName},</if>
+            <if test="menuPid != null and menuPid != ''">menu_pid=#{menuPid},</if>
+            <if test="url != null and url != ''">url=#{url},</if>
+            <if test="level != null and level != ''">level=#{level}</if>
+        </trim>
+        where menu_id=#{menuId}
+    </update>
+
+    <delete id="deleteMenu" parameterType="String">
+        delete from t_menu where menu_id = #{menuId}
+    </delete>
+
 </mapper>

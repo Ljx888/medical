@@ -32,6 +32,14 @@ public interface ISysRoleService {
     public List<SysRole> selectSysRoleList(SysRole role);
 
     /**
+     * 查询角色信息
+     *
+     * @param roleId
+     * @return
+     */
+    public SysRole selectRoleId(String roleId);
+
+    /**
      * 添加
      *
      * @param role
@@ -39,4 +47,20 @@ public interface ISysRoleService {
      * @return
      */
     public int insert(SysRole role, String[] fid);
+
+    /**
+     * 修改角色权限
+     *
+     * @param role
+     * @param fid
+     * @return
+     */
+    public int update(SysRole role, String[] fid);
+
+    /**
+     * 删除
+     *
+     * @param roleId
+     */
+    public void delete(String roleId);
 }

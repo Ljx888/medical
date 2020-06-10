@@ -14,9 +14,11 @@ import com.gx.wuzhou.medical.core.domain.Ztree;
 import com.gx.wuzhou.medical.domain.SysMenu;
 import com.gx.wuzhou.medical.domain.SysRole;
 import com.gx.wuzhou.medical.mapper.SysMenuMapper;
+import com.gx.wuzhou.medical.mapper.SysRoleMenuMapper;
 import com.gx.wuzhou.medical.service.ISysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +36,23 @@ public class SysMenuServiceImpl implements ISysMenuService {
 
     @Autowired
     private SysMenuMapper menuMapper;
+    @Autowired
+    private SysRoleMenuMapper roleMenuMapper;
 
     @Override
     public List<SysMenu> selectMenuAll() {
         List<SysMenu> menuList = menuMapper.selectMenuAll();
         return menuList;
+    }
+
+    @Override
+    public List<SysMenu> selectMenuList(SysMenu menu) {
+        return menuMapper.selectMenuList(menu);
+    }
+
+    @Override
+    public SysMenu selectMenu(String menuId) {
+        return menuMapper.selectMenu(menuId);
     }
 
     public List<Ztree> roleMenuZtree(SysRole role){
@@ -52,6 +66,23 @@ public class SysMenuServiceImpl implements ISysMenuService {
             ztrees = initZtree(menuList, null, true);
         }
         return ztrees;
+    }
+
+    @Override
+    public int saveMenu(SysMenu menu) {
+        return menuMapper.saveMenu(menu);
+    }
+
+    @Override
+    public int updateMenu(SysMenu menu) {
+        return menuMapper.updateMenu(menu);
+    }
+
+    @Transactional
+    @Override
+    public int delete(String menuId) {
+        roleMenuMapper.deleteMenuRoleId(menuId);
+        return menuMapper.deleteMenu(menuId);
     }
 
     /**

@@ -28,4 +28,20 @@ public interface SysRoleMenuMapper {
      * @param roleMenuList
      */
     public int insertRoleMenu(List<SysRoleMenu> roleMenuList);
+
+    /**
+     * 删除角色菜单信息
+     *
+     * @param roleId
+     * @return
+     */
+    public int deleteRoleMenuId(String roleId);
+
+    /**
+     * 删除菜单
+     *
+     * @param menuId
+     * @return
+     */
+    public int deleteMenuRoleId(String menuId);
 }

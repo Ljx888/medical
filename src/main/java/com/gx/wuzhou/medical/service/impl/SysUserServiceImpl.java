@@ -16,6 +16,8 @@ import com.gx.wuzhou.medical.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈〉
@@ -26,4 +28,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysUserServiceImpl implements ISysUserService {
+    @Autowired
+    public SysUserMapper userMapper;
+
+    @Override
+    public List<SysUser> selectUserList(SysUser user) {
+        return userMapper.selectUserList(user);
+    }
 }

@@ -42,11 +42,19 @@ public class SysRoleServiceImpl implements ISysRoleService {
         return roleMapper.selectSysRoleList(role);
     }
 
-    @Transactional
     @Override
-    public int insert(SysRole role, String[] fid) {
-        int row=0;
-        insertRole(role);
+    public SysRole selectRoleId(String roleId) {
+        return roleMapper.selectRoleId(roleId);
+    }
+
+    /**
+     * 封装添加角色权限方法
+     *
+     * @param role
+     * @param fid
+     * @return
+     */
+    public List<SysRoleMenu> findList(SysRole role, String[] fid){
         List<SysRoleMenu> list = new ArrayList<SysRoleMenu>();
         for (String menuId : fid){
             SysRoleMenu roleMenu = new SysRoleMenu();
@@ -54,10 +62,34 @@ public class SysRoleServiceImpl implements ISysRoleService {
             roleMenu.setMenuId(menuId);
             list.add(roleMenu);
         }
+        return list;
+    }
+
+    @Transactional
+    @Override
+    public int insert(SysRole role, String[] fid) {
+        int row=0;
+        insertRole(role);
+        List<SysRoleMenu> list =findList(role, fid);
         if (list.size()>0){
         row = insertRoleMenu(list);
         }
         return row;
+    }
+
+    @Transactional
+    @Override
+    public int update(SysRole role, String[] fid) {
+        updateRole(role);
+        deleteRoleMenu(role.getRoleId());
+        return insertRoleMenu(role, fid);
+    }
+
+    @Transactional
+    @Override
+    public void delete(String roleId) {
+        deleteRole(roleId);
+        deleteRoleMenu(roleId);
     }
 
     /**
@@ -75,5 +107,45 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     public int insertRoleMenu(List<SysRoleMenu> roleMenuList){
         return roleMenuMapper.insertRoleMenu(roleMenuList);
+    }
+
+    /**
+     * 添加角色菜单权限
+     *
+     * @param role
+     * @param fid
+     * @return
+     */
+    public int insertRoleMenu(SysRole role, String[] fid){
+        List<SysRoleMenu> list = findList(role, fid);
+        return roleMenuMapper.insertRoleMenu(list);
+    }
+
+    /**
+     * 修改角色
+     *
+     * @param role
+     */
+    public void updateRole(SysRole role){
+        roleMapper.updateRole(role);
+    }
+
+    /**
+     * 删除角色权限信息
+     *
+     * @param roleId
+     * @return
+     */
+    public int deleteRoleMenu(String roleId){
+        return roleMenuMapper.deleteRoleMenuId(roleId);
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param roleId
+     */
+    public void deleteRole(String roleId){
+        roleMapper.deleteRole(roleId);
     }
 }

@@ -31,10 +31,49 @@ public interface SysMenuMapper {
     public List<SysMenu> selectMenuAll();
 
     /**
+     * 查询菜单信息
+     *
+     * @return
+     */
+    public List<SysMenu> selectMenuList(SysMenu menu);
+
+    /**
+     * 查询菜单
+     *
+     * @param menuId
+     * @return
+     */
+    public SysMenu selectMenu(String menuId);
+
+    /**
      * 查询角色权限
      *
      * @param roleId
      * @return
      */
     public List<String> selectRoleTree(String roleId);
+
+    /**
+     * 添加菜单
+     *
+     * @param menu
+     * @return
+     */
+    public int saveMenu(SysMenu menu);
+
+    /**
+     * 修改菜单
+     *
+     * @param menu
+     * @return
+     */
+    public int updateMenu(SysMenu menu);
+
+    /**
+     * 删除菜单
+     *
+     * @param menuId
+     * @return
+     */
+    public int deleteMenu(String menuId);
 }

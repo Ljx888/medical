@@ -26,16 +26,16 @@
 </head>
 <body>
 <div class="panel admin-panel">
-    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加内容</strong></div>
+    <div class="panel-head" id="edit"><strong><span class="icon-pencil-square-o"></span>修改内容</strong></div>
     <div class="body-content">
-        <form method="post" class="form-x" action="page/role/add">
+        <form method="post" class="form-x" action="page/role/edit">
             <input id="fid" name="fid" value="" type="hidden"/>
             <div class="form-group">
                 <div class="label">
                     <label>角色编号：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" value="" name="roleId" data-validate="required:请输入标题" />
+                    <input type="text" class="input w50" value="${role.roleId}" name="roleId" data-validate="required:请输入标题" />
                     <div class="tips"></div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     <label>角色名称：</label>
                 </div>
                 <div class="field">
-                    <input type="text" class="input w50" value="" name="roleName" data-validate="required:请输入标题" />
+                    <input type="text" class="input w50" value="${role.roleName}" name="roleName" data-validate="required:请输入标题" />
                     <div class="tips"></div>
                 </div>
             </div>
@@ -70,25 +70,25 @@
     </div>
     <script type="text/javascript">
         var setting = {
-                check: {
+            check: {
+                enable: true,
+                chkStyle: "checkbox",
+                chkboxType: { "Y": "ps", "N": "ps" }
+            },
+            data: {
+                simpleData: {
                     enable: true,
-                    chkStyle: "checkbox",
-                    chkboxType: { "Y": "ps", "N": "ps" }
-                },
-                data: {
-                    simpleData: {
-                        enable: true,
-                        idKey: "id",
-                        pIdKey: "pid",
-                        rootPId: 0
-                    }
-                },
+                    idKey: "id",
+                    pIdKey: "pid",
+                    rootPId: 0
+                }
+            },
 
             async:{    //异步加载数据
                 type: 'get',
                 enable: true,    //是否加载异步
                 url: "<%=path%>/page/menu/ztree",
-                otherParam: ["treeId", "0"]
+                otherParam: ["treeID", "0","roleId","${role.roleId}"]
             }
 
         };

@@ -32,9 +32,31 @@ public interface SysRoleMapper {
     public List<SysRole> selectSysRoleList(SysRole role);
 
     /**
+     * 查询用户信息
+     *
+     * @param roleId
+     * @return
+     */
+    public SysRole selectRoleId(String roleId);
+
+    /**
      * 添加角色
      *
      * @param role
      */
     public void insertRole(SysRole role);
+
+    /**
+     * 修改角色信息
+     *
+     * @param role
+     */
+    public void updateRole(SysRole role);
+
+    /**
+     * 删除角色
+     *
+     * @param roleId
+     */
+    public void deleteRole(String roleId);
 }

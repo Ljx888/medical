@@ -12,6 +12,8 @@ package com.gx.wuzhou.medical.mapper;
 
 import com.gx.wuzhou.medical.domain.SysUser;
 
+import java.util.List;
+
 /**
  * 〈一句话功能简述〉<br> 
  * 〈〉
@@ -27,4 +29,12 @@ public interface SysUserMapper {
      * @return
      */
     public SysUser selectUserIdAndPwd(SysUser user);
+
+    /**
+     * 查询用户全部数据
+     *
+     * @return
+     */
+    public List<SysUser> selectUserList(SysUser user);
+
 }

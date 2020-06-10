@@ -16,6 +16,10 @@
         </where>
     </select>
 
+    <select id="selectRoleId" resultMap="SysRoleResult" resultType="SysRole">
+        select * from t_role where role_id = #{roleId}
+    </select>
+
     <insert id="insertRole" parameterType="SysRole">
         insert into t_role(
         <if test="roleId != null and roleId != ''">role_id,</if>
@@ -25,4 +29,16 @@
         <if test="roleName != null and roleName != ''">#{roleName}</if>
         )
     </insert>
+
+    <update id="updateRole" parameterType="SysRole">
+        update t_role
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="roleName != null and roleName != ''">role_name = #{roleName}</if>
+        </trim>
+        where role_id=#{roleId}
+    </update>
+
+    <delete id="deleteRole" parameterType="String">
+        delete from t_role where role_id = #{roleId}
+    </delete>
 </mapper>

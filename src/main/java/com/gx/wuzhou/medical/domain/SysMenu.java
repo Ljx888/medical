@@ -25,7 +25,7 @@ public class SysMenu extends BaseUtil {
     private String menuName;
     private String menuPid;
     private String url;
-    private String level;
+    private Integer level;
 
     public String getMenuId() {
         return menuId;
@@ -59,11 +59,22 @@ public class SysMenu extends BaseUtil {
         this.url = url;
     }
 
-    public String getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    @Override
+    public String toString() {
+        return "SysMenu{" +
+                "menuId='" + menuId + '\'' +
+                ", menuName='" + menuName + '\'' +
+                ", menuPid='" + menuPid + '\'' +
+                ", url='" + url + '\'' +
+                ", level='" + level + '\'' +
+                '}';
     }
 }

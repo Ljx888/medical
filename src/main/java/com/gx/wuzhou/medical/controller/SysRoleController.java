@@ -15,12 +15,8 @@ import com.gx.wuzhou.medical.service.ISysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -46,11 +42,32 @@ public class SysRoleController {
         return "role_list";
     }
 
+    @GetMapping("get")
+    public String get(String roleId, ModelMap mmap){
+        SysRole role = roleService.selectRoleId(roleId);
+        mmap.put("role", role);
+        return "role_edit";
+    }
+
     @PostMapping("add")
     public String add(SysRole role, String[] fid){
         if (roleService.insert(role, fid) == 0){
             return "error";
         }else
+        return "redirect:/page/role/list";
+    }
+
+    @PostMapping("edit")
+    public String edit(SysRole role, String[] fid){
+        if (roleService.update(role, fid) == 0){
+            return "error";
+        }else
+            return "redirect:/page/role/list";
+    }
+
+    @GetMapping("del")
+    public String delete(String roleId){
+        roleService.delete(roleId);
         return "redirect:/page/role/list";
     }
 }

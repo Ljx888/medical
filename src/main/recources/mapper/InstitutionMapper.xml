@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.InstitutionMapper">
+    <resultMap id="InitResult" type="Institution">
+        <result property="agenCode" column="agen_code"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="grade" column="grade"/>
+        <result property="agenName" column="agen_name"/>
+    </resultMap>
+
+    <sql id="selectInitVo">
+        select * from t_institution
+    </sql>
+
+    <select id="selectInitList" resultMap="InitResult" resultType="Institution">
+        <include refid="selectInitVo"/>
+        <where>
+            <if test="agenCode != null and agenCode != ''">agen_code = #{agenCode}</if>
+            <if test="agenName != null and agenName != ''">AND agen_name = #{agenName}</if>
+        </where>
+    </select>
+
+    <select id="selectInit" resultMap="InitResult" resultType="Institution">
+        <include refid="selectInitVo"/>
+        where agen_code = #{agenCode}
+    </select>
+
+    <insert id="saveInit" parameterType="Institution">
+        insert into t_institution(
+            <if test="agenCode != null and agenCode != ''">agen_code,</if>
+            <if test="agenName != null and agenName != ''">agen_name,</if>
+            <if test="areaCode != null and areaCode != ''">area_code,</if>
+            <if test="grade != null and grade != ''">grade</if>
+        ) value (
+           <if test="agenCode != null and agenCode != ''">#{agenCode},</if>
+           <if test="agenName != null and agenName != ''">#{agenName},</if>
+           <if test="areaCode != null and areaCode != ''">#{areaCode},</if>
+           <if test="grade != null and grade != ''">#{grade}</if>
+        )
+    </insert>
+
+    <update id="updateInit" parameterType="Institution">
+        update t_institution
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="agenName != null and agenName != ''">agen_name=#{agenName},</if>
+            <if test="areaCode != null and areaCode != ''">area_code=#{areaCode},</if>
+            <if test="grade != null and grade != ''">grade=#{grade}</if>
+        </trim>
+        where agen_code=#{agenCode}
+    </update>
+
+    <delete id="deleteInit" parameterType="String">
+        delete from t_institution where agen_code = #{agenCode}
+    </delete>
+</mapper>

@@ -6,9 +6,16 @@
     <resultMap id="SysUserResult" type="SysUser">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
+        <result property="fullName" column="full_name"/>
         <result property="pwd" column="pwd"/>
         <result property="status" column="status"/>
         <result property="agenCode" column="agen_code"/>
+        <association property="init" column="agen_code" javaType="com.gx.wuzhou.medical.domain.Institution" resultMap="InitResult"/>
+    </resultMap>
+
+    <resultMap id="InitResult" type="Institution">
+        <result property="agenCode" column="agen_code"/>
+        <result property="agenName" column="agen_name"/>
     </resultMap>
 
     <select id="selectUserIdAndPwd" parameterType="SysUser" resultMap="SysUserResult">
@@ -16,6 +23,15 @@
         <where>
             <if test="userId != null and userId != ''">user_id = #{userId}</if>
             <if test="pwd !=null and pwd != ''">AND pwd = #{pwd}</if>
+        </where>
+    </select>
+
+    <select id="selectUserList" parameterType="SysUser" resultMap="SysUserResult">
+        select a.*, b.agen_name from t_user a
+        left join t_institution b on a.agen_code = b.agen_code
+        <where>
+            <if test="userId != null and userId != ''">a.user_id = #{userId}</if>
+            <if test="fullName != null and fullName != ''">AND  a.user_name = #{fullName}</if>
         </where>
     </select>
 

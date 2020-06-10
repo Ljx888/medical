@@ -10,7 +10,7 @@
 <head>
     <base href="<%=basePath%>">
 
-    <title>角色信息列表</title>
+    <title>用户信息列表</title>
 
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
@@ -26,35 +26,39 @@
 </head>
 
 <body>
-<form method="get" action="page/role/list" id="listform">
+<form method="post" action="page/area/list" id="listform">
     <div class="panel admin-panel">
         <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
             <ul class="search" style="padding-left:10px;">
-                <li> <a class="button border-main icon-plus-square-o" href="page/role/role_add.jsp"> 添加内容</a> </li>
+                <li> <a class="button border-main icon-plus-square-o" href="page/area/input"> 添加内容</a> </li>
                 <li>搜索：</li>
                 <li>
-                    <input type="text" placeholder="请输入搜索角色名称" name="roleName" class="input" style="width:250px; line-height:17px;display:inline-block" />
-                    <button class="button border-main icon-search" type="submit" > 搜索</button></li>
+                    <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
+                    <button class="button border-main icon-search" > 搜索</button></li>
             </ul>
         </div>
         <table class="table table-hover text-center">
             <tr>
                 <th width="100" style="text-align:left; padding-left:20px;">ID</th>
-                <th>角色编号</th>
-                <th>角色名称</th>
+                <th>区域编号</th>
+                <th>区域名称</th>
+                <th>父编号</th>
+                <th>级别</th>
                 <th width="310">操作</th>
             </tr>
 
             <c:forEach items="${list}" var="list" varStatus="i">
                 <tr>
                     <td>${i.index}</td>
-                    <td>${list.roleId}</td>
-                    <td>${list.roleName}</td>
+                    <td>${list.areaCode}</td>
+                    <td>${list.areaName}</td>
+                    <td>${list.parent}</td>
+                    <td>${list.grade}</td>
                     <td>
                         <div class="button-group">
-                            <a class="button border-main" href="page/role/get?roleId=${list.roleId}"><span class="icon-edit"></span> 修改</a>
-                            <a class="button border-red" href="page/role/del?roleId=${list.roleId}"><span class="icon-trash-o"></span> 删除</a>
+                            <a class="button border-main" href="page/area/get?areaCode=${list.areaCode}"><span class="icon-edit"></span> 修改</a>
+                            <a class="button border-red" href="page/area/del?areaCode=${list.areaCode}"><span class="icon-trash-o"></span> 删除</a>
                         </div>
                     </td>
                 </tr>
@@ -82,9 +86,6 @@
         <span style="margin-left: 10px">当前为第${page.currentPage}页|一共${page.totalPage}页</span>
     </div>
 </form>
-<script type="javascript">
-
-</script>
 </body>
 
 </html>

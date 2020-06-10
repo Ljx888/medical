@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.AreaMapper">
+    <resultMap id="AreaResult" type="Area">
+        <result property="id" column="id"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="areaName" column="area_name"/>
+        <result property="grade" column="grade"/>
+        <result property="parent" column="parent"/>
+    </resultMap>
+
+    <sql id="selectAreaVo">
+        select * from t_area
+    </sql>
+
+    <select id="selectAreaList" resultMap="AreaResult" parameterType="Area">
+        <include refid="selectAreaVo"/>
+        <where>
+            <if test="areaCode != null and areaCode != ''">area_code = #{areaCode}</if>
+            <if test="areaName != null and areaName != ''">AND area_name = #{areaName}</if>
+        </where>
+    </select>
+
+    <select id="selectAreaAll" resultMap="AreaResult">
+        <include refid="selectAreaVo"/>
+        order by grade, parent
+    </select>
+
+    <select id="selectInitTree" parameterType="String" resultType="String">
+        select concat(a.area_code) as perms
+		from t_area a
+			left join t_institution u on a.area_code = u.area_code
+		where u.agen_code = #{agenCode}
+		order by a.grade, a.parent
+    </select>
+
+    <select id="selectArea" parameterType="String" resultMap="AreaResult">
+        <include refid="selectAreaVo"/>
+        where area_code = #{areaCode}
+    </select>
+
+    <insert id="insertArea" parameterType="Area">
+        insert into t_area(
+        <if test="areaCode != null and areaCode != null">area_code,</if>
+        <if test="areaName != null and areaName != null">area_name,</if>
+        <if test="parent != null and parent != ''">parent,</if>
+        <if test="grade != null and grade != ''">grade</if>
+        )value (
+        <if test="areaCode != null and areaCode != null">#{areaCode},</if>
+        <if test="areaName != null and areaName != null">#{areaName},</if>
+        <if test="parent != null and parent != ''">#{parent},</if>
+        <if test="grade != null and grade != ''">#{grade}</if>
+        )
+    </insert>
+
+    <update id="updateArea" parameterType="Area">
+        update t_area
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="areaName != null and areaName != ''">area_name=#{areaName},</if>
+            <if test="parent != null and parent != ''">parent=#{parent},</if>
+            <if test="grade != null and grade != ''">grade=#{grade}</if>
+        </trim>
+        where area_code=#{areaCode}
+    </update>
+
+    <delete id="deleteArea" parameterType="String">
+        delete from t_area where area_code = #{areaCode}
+    </delete>
+</mapper>
