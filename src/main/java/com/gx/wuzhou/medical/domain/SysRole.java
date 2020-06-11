@@ -23,6 +23,7 @@ import com.gx.wuzhou.medical.core.util.BaseUtil;
 public class SysRole extends BaseUtil {
     private String roleId;
     private String roleName;
+    private boolean flag = false;
 
     public String getRoleId() {
         return roleId;
@@ -40,11 +41,20 @@ public class SysRole extends BaseUtil {
         this.roleName = roleName;
     }
 
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
     @Override
     public String toString() {
         return "SysRole{" +
                 "roleId='" + roleId + '\'' +
                 ", roleName='" + roleName + '\'' +
+                ", flag=" + flag +
                 '}';
     }
 }

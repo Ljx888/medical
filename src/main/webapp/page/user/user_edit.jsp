@@ -13,11 +13,10 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <link rel="stylesheet" type="text/css" href="css/admin.css">
-
-    <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="js/admin.js"></script>
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             //重新绑定表单提交
@@ -37,7 +36,7 @@
     </div>
     <div class="body-content">
         <form id="form-add" method="post" class="form-x"
-              action="<%=path%>/userServlet?type=edit">
+              action="page/user/edit">
             <div class="form-group">
                 <div class="label">
                     <label>用户编号：</label>
@@ -86,7 +85,21 @@
 
                 </div>
             </div>
-
+            <div class="form-group">
+                <div class="label">
+                    <label>角色：</label>
+                </div>
+                <div class="field">
+                    <c:forEach items="${roles}" var="roles">
+                        <c:if test="${roles.flag == true}">
+                        <input name="roleIds" type="checkbox" checked value="${roles.roleId}" />${roles.roleName}
+                        </c:if>
+                        <c:if test="${roles.flag == false}">
+                            <input name="roleIds" type="checkbox" value="${roles.roleId}" />${roles.roleName}
+                        </c:if>
+                    </c:forEach>
+                </div>
+            </div>
             <div class="form-group">
                 <div class="label">
                     <label>农合机构：</label>
@@ -94,8 +107,8 @@
                 <div class="field">
                     <select id="areapid" name="agenCode" class="input w50">
                         <option value="${user.agenCode}">${user.agenCode}</option>
-                        <c:forEach items="${inst}" var="inst">
-                            <option value="${inst.agenCode}">${inst.agenName}</option>
+                        <c:forEach items="${init}" var="init">
+                            <option value="${init.agenCode}">${init.agenName}</option>
                         </c:forEach>
                     </select>
                     <div class="tips"></div>

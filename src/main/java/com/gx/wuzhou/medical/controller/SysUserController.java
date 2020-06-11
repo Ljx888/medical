@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -53,8 +54,42 @@ public class SysUserController {
     public String input(ModelMap mmap){
         List<SysRole> roles = roleService.selectSysRoleList(null);
         List<Institution> init = initService.selectInitList(null);
+
         mmap.put("roles", roles);
         mmap.put("init", init);
+
         return "user_add";
+    }
+
+    @GetMapping("get")
+    public String get(String userId, ModelMap mmap){
+        SysUser user = userService.selectUser(userId);
+        List<SysRole> roles = roleService.selectRoleByUserId(userId);
+        List<Institution> init = initService.selectInitList(null);
+
+        mmap.put("user", user);
+        mmap.put("roles", roles);
+        mmap.put("init", init);
+
+        return "user_edit";
+    }
+
+    @PostMapping("add")
+    public String add(SysUser user, String[] roleIds){
+        System.out.println(user.toString()+""+roleIds.toString());
+        userService.insert(user, roleIds);
+        return "redirect:/page/user/list";
+    }
+
+    @PostMapping("edit")
+    public String edit(SysUser user, String[] roleIds){
+        userService.update(user, roleIds);
+        return "redirect:/page/user/list";
+    }
+
+    @GetMapping("del")
+    public String delete(String userId){
+        userService.delete(userId);
+        return "redirect:/page/user/list";
     }
 }

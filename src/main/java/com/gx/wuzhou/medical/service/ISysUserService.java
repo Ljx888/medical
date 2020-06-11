@@ -29,4 +29,35 @@ public interface ISysUserService {
      * @return
      */
     public List<SysUser> selectUserList(SysUser user);
+
+    /**
+     * 对象查询
+     *
+     * @return
+     */
+    public SysUser selectUser(String userId);
+
+    /**
+     * 添加
+     *
+     * @param user
+     * @return
+     */
+    public int insert(SysUser user, String[] roleId);
+
+    /**
+     * 修改
+     *
+     * @param user
+     * @return
+     */
+    public int update(SysUser user, String[] roleId);
+
+    /**
+     * 删除
+     *
+     * @param userId
+     * @return
+     */
+    public int delete(String userId);
 }

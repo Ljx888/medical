@@ -16,6 +16,13 @@
         </where>
     </select>
 
+    <select id="selectRoleByUserId" parameterType="String" resultMap="SysRoleResult">
+        select a.role_id, a.role_name, b.user_id from t_role a
+        left join t_user_role b on a.role_id = b.role_id
+        left join t_user c on c.user_id = b.user_id
+        where b.user_id = #{userId}
+    </select>
+
     <select id="selectRoleId" resultMap="SysRoleResult" resultType="SysRole">
         select * from t_role where role_id = #{roleId}
     </select>

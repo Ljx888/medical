@@ -43,6 +43,21 @@ public class SysRoleServiceImpl implements ISysRoleService {
     }
 
     @Override
+    public List<SysRole> selectRoleByUserId(String userId) {
+        List<SysRole> userRoles = roleMapper.selectRoleByUserId(userId);
+        List<SysRole> roles = roleMapper.selectSysRoleList(null);
+        for (SysRole role : roles){
+            for (SysRole userRole : userRoles){
+                if (role.getRoleId().equals(userRole.getRoleId())){
+                    role.setFlag(true);
+                    break;
+                }
+            }
+        }
+        return roles;
+    }
+
+    @Override
     public SysRole selectRoleId(String roleId) {
         return roleMapper.selectRoleId(roleId);
     }

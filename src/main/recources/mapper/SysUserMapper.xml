@@ -35,4 +35,40 @@
         </where>
     </select>
 
+    <select id="selectUser" parameterType="String" resultMap="SysUserResult">
+        select a.*, b.agen_name from t_user a
+        left join t_institution b on a.agen_code = b.agen_code
+        where a.user_id = #{userId}
+    </select>
+
+    <insert id="insertUser" parameterType="SysUser">
+        insert into t_user (
+            <if test="userId != null and userId != ''">user_id,</if>
+            <if test="fullName != null and fullName != ''">full_name,</if>
+            <if test="pwd != null and pwd != ''">pwd,</if>
+            <if test="status != null">status,</if>
+            <if test="agenCode != null and agenCode != ''">agen_code</if>
+        ) values (
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="fullName != null and fullName != ''">#{fullName},</if>
+            <if test="pwd != null and pwd != ''">#{pwd},</if>
+            <if test="status != null">#{status},</if>
+            <if test="agenCode != null and agenCode != ''">#{agenCode}</if>
+        )
+    </insert>
+
+    <update id="updateUser" parameterType="SysUser">
+        update t_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="fullName != null and fullName != ''">full_name = #{fullName},</if>
+            <if test="pwd != null and pwd != ''">pwd = #{pwd},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="agenCode != null and agenCode != ''">agen_code = #{agenCode}</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+    <delete id="deleteUser" parameterType="String">
+        delete from t_user where user_id = #{userId}
+    </delete>
 </mapper>

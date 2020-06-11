@@ -37,4 +37,35 @@ public interface SysUserMapper {
      */
     public List<SysUser> selectUserList(SysUser user);
 
+    /**
+     * 对象查询
+     *
+     * @return
+     */
+    public SysUser selectUser(String userId);
+
+    /**
+     * 添加
+     *
+     * @param user
+     * @return
+     */
+    public int insertUser(SysUser user);
+
+    /**
+     * 修改
+     *
+     * @param user
+     * @return
+     */
+    public int updateUser(SysUser user);
+
+    /**
+     * 删除
+     *
+     * @param userId
+     * @return
+     */
+    public int deleteUser(String userId);
+
 }

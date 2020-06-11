@@ -32,6 +32,14 @@ public interface ISysRoleService {
     public List<SysRole> selectSysRoleList(SysRole role);
 
     /**
+     * 通过编号查询对应的角色
+     *
+     * @param userId
+     * @return
+     */
+    public List<SysRole> selectRoleByUserId(String userId);
+
+    /**
      * 查询角色信息
      *
      * @param roleId

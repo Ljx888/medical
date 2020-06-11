@@ -32,6 +32,14 @@ public interface SysRoleMapper {
     public List<SysRole> selectSysRoleList(SysRole role);
 
     /**
+     * 通过编号查询对应的角色
+     *
+     * @param userId
+     * @return
+     */
+    public List<SysRole> selectRoleByUserId(String userId);
+
+    /**
      * 查询用户信息
      *
      * @param roleId

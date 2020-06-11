@@ -26,7 +26,7 @@
 </head>
 
 <body>
-<form method="post" action="" id="listform">
+<form method="get" action="page/init/list" id="listform">
     <div class="panel admin-panel">
         <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
@@ -34,8 +34,8 @@
                 <li> <a class="button border-main icon-plus-square-o" href="page/user/input"> 添加内容</a> </li>
                 <li>搜索：</li>
                 <li>
-                    <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
-                    <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a></li>
+                    <input type="text" placeholder="请输入搜索用户名称" name="fullName" class="input" style="width:250px; line-height:17px;display:inline-block" />
+                    <button class="button border-main icon-search"> 搜索</button></li>
             </ul>
         </div>
         <table class="table table-hover text-center">
@@ -62,8 +62,8 @@
                     <td>${list.agenCode}</td>
                     <td>
                         <div class="button-group">
-                            <a class="button border-main" href="userServlet?type=get&userId=${list.userId}"><span class="icon-edit"></span> 修改</a>
-                            <a class="button border-red" href="userServlet?type=del&userId=${list.userId}"><span class="icon-trash-o"></span> 删除</a>
+                            <a class="button border-main" href="page/user/get?userId=${list.userId}"><span class="icon-edit"></span> 修改</a>
+                            <a class="button border-red" href="page/user/del?userId=${list.userId}"><span class="icon-trash-o"></span> 删除</a>
                         </div>
                     </td>
                 </tr>

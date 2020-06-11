@@ -36,7 +36,7 @@
     </div>
     <div class="body-content">
         <form id="form-add" method="post" class="form-x"
-              action="<%=path%>/userServlet?type=save">
+              action="<%=path%>/page/user/add">
             <div class="form-group">
                 <div class="label">
                     <label>用户编号：</label>
