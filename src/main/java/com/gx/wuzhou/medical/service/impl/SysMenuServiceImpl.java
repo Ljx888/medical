@@ -51,6 +51,11 @@ public class SysMenuServiceImpl implements ISysMenuService {
     }
 
     @Override
+    public List<SysMenu> selectUserMenuList(String userId) {
+        return menuMapper.selectUserMenuList(userId);
+    }
+
+    @Override
     public SysMenu selectMenu(String menuId) {
         return menuMapper.selectMenu(menuId);
     }

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.SysMedicalMapper">
+    <resultMap id="MedicalResult" type="SysMedical">
+        <result property="jgbm" column="jgbm"/>
+        <result property="zzjgbm" column="zzjgbm"/>
+        <result property="jgmc" column="jgmc"/>
+        <result property="dqbm" column="dqbm"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="lsgx" column="lsgx"/>
+        <result property="jgjb" column="jgjb"/>
+        <result property="sbddlx" column="sbddlx"/>
+        <result property="pzddlx" column="pzddlx"/>
+        <result property="ssjjlx" column="ssjjlx"/>
+        <result property="wsjgdl" column="wsjgdl"/>
+        <result property="wsjgxl" column="wsjgxl"/>
+        <result property="zgdw" column="zgdw"/>
+        <result property="kysj" column="kysj"/>
+        <result property="frdb" column="frdb"/>
+        <result property="zczj" column="zczj"/>
+        <association property="area" column="area_code" javaType="com.gx.wuzhou.medical.domain.Area" resultMap="areaResult"/>
+    </resultMap>
+
+    <resultMap id="areaResult" type="Area">
+        <result property="areaCode" column="area_code"/>
+        <result property="areaName" column="area_name"/>
+    </resultMap>
+
+    <select id="selectMedicalList" resultMap="MedicalResult" resultType="SysMedical">
+        select a.*, b.area_name from t_medical a
+        left join t_area b on a.area_code = b.area_code
+        <where>
+            <if test="jgbm != null and jgbm != ''">a.jgbm = #{jgbm}</if>
+            <if test="jgmc != null and jgmc != ''">AND a.jgmc = #{jgmc}</if>
+        </where>
+    </select>
+
+    <select id="selectMedical" resultMap="MedicalResult" parameterType="SysMedical">
+        select a.*, b.area_name from t_medical a
+        left join t_area b on a.area_code = b.area_code
+        where a.jgbm = #{jgbm}
+    </select>
+
+    <insert id="saveSysMedical" parameterType="SysMedical">
+        insert into t_medical(
+        <if test="jgbm != null and jgbm != ''">jgbm,</if>
+        <if test="zzjgbm != null and zzjgbm != ''">zzjgbm,</if>
+        <if test="jgmc != null and jgmc != ''">jgmc,</if>
+        <if test="dqbm != null and dqbm != ''">dqbm,</if>
+        <if test="areaCode != null and areaCode != ''">area_code,</if>
+        <if test="lsgx != null and lsgx != ''">lsgx,</if>
+        <if test="jgjb != null and jgjb != ''">jgjb,</if>
+        <if test="sbddlx != null and sbddlx != ''">sbddlx,</if>
+        <if test="pzddlx != null and pzddlx != ''">pzddlx,</if>
+        <if test="ssjjlx != null and ssjjlx != ''">ssjjlx,</if>
+        <if test="wsjgdl != null and wsjgdl != ''">wsjgdl,</if>
+        <if test="wsjgxl != null and wsjgxl != ''">wsjgxl,</if>
+        <if test="zgdw != null and zgdw != ''">zgdw,</if>
+        <if test="kysj != null and kysj != ''">kysj,</if>
+        <if test="frdb != null and frdb != ''">frdb,</if>
+        <if test="zczj != null and zczj != ''">zczj</if>
+        )value (
+        <if test="jgbm != null and jgbm != ''">#{jgbm},</if>
+        <if test="zzjgbm != null and zzjgbm != ''">#{zzjgbm},</if>
+        <if test="jgmc != null and jgmc != ''">#{jgmc},</if>
+        <if test="dqbm != null and dqbm != ''">#{dqbm},</if>
+        <if test="areaCode != null and areaCode != ''">#{areaCode},</if>
+        <if test="lsgx != null and lsgx != ''">#{lsgx},</if>
+        <if test="jgjb != null and jgjb != ''">#{jgjb},</if>
+        <if test="sbddlx != null and sbddlx != ''">#{sbddlx},</if>
+        <if test="pzddlx != null and pzddlx != ''">#{pzddlx},</if>
+        <if test="ssjjlx != null and ssjjlx != ''">#{ssjjlx},</if>
+        <if test="wsjgdl != null and wsjgdl != ''">#{wsjgdl},</if>
+        <if test="wsjgxl != null and wsjgxl != ''">#{wsjgxl},</if>
+        <if test="zgdw != null and zgdw != ''">#{zgdw},</if>
+        <if test="kysj != null and kysj != ''">#{kysj},</if>
+        <if test="frdb != null and frdb != ''">#{frdb},</if>
+        <if test="zczj != null and zczj != ''">#{zczj}</if>
+        )
+
+    </insert>
+
+    <update id="updateSysMedical" parameterType="SysMedical">
+        update t_medical
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="zzjgbm != null and zzjgbm != ''">zzjgbm = #{zzjgbm},</if>
+            <if test="jgmc != null and jgmc != ''">jgmc = #{jgmc},</if>
+            <if test="dqbm != null and dqbm != ''">dqbm = #{dqbm},</if>
+            <if test="areaCode != null and areaCode != ''">area_code = #{areaCode},</if>
+            <if test="lsgx != null and lsgx != ''">lsgx = #{lsgx},</if>
+            <if test="jgjb != null and jgjb != ''">jgjb = #{jgjb},</if>
+            <if test="sbddlx != null and sbddlx != ''">sbddlx = #{sbddlx},</if>
+            <if test="pzddlx != null and pzddlx != ''">pzddlx = #{pzddlx},</if>
+            <if test="ssjjlx != null and ssjjlx != ''">ssjjlx = #{ssjjlx},</if>
+            <if test="wsjgdl != null and wsjgdl != ''">wsjgdl = #{wsjgdl},</if>
+            <if test="wsjgxl != null and wsjgxl != ''">wsjgxl = #{wsjgxl},</if>
+            <if test="zgdw != null and zgdw != ''">zgdw = #{zgdw},</if>
+            <if test="kysj != null and kysj != ''">kysj = #{kysj},</if>
+            <if test="frdb != null and frdb != ''">frdb = #{frdb},</if>
+            <if test="zczj != null and zczj != ''">zczj = #{zczj}</if>
+        </trim>
+        where jgbm = #{jgbm}
+    </update>
+
+    <delete id="deleteSysMedical" parameterType="String">
+        delete from t_medical where jgbm = #{jgbm}
+    </delete>
+</mapper>

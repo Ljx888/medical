@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.S201Mapper">
+    <resultMap id="S201Result" type="S201">
+        <result property="id" column="id"/>
+        <result property="itemCode" column="item_code"/>
+        <result property="itemName" column="item_name"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <select id="selectS201List" resultMap="S201Result" resultType="S201">
+        select * from s201
+    </select>
+</mapper>

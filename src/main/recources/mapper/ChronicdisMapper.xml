@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.ChronicdisMapper">
+    <resultMap id="ChronicdisResult" type="Chronicdis">
+        <result property="illCode" column="ill_code"/>
+        <result property="illName" column="ill_name"/>
+        <result property="pyCode" column="py_code"/>
+        <result property="wbCode" column="wb_code"/>
+    </resultMap>
+    
+    <sql id="selectChronidisVo">
+        select * from t_chronicdis
+    </sql>
+
+    <select id="selectChronicdisList" resultMap="ChronicdisResult" resultType="Chronicdis">
+        <include refid="selectChronidisVo"/>
+        <where>
+            <if test="illCode != null and illCode != ''">ill_code = #{illCode}</if>
+            <if test="illName != null and illName != ''">ill_name = #{illName}</if>
+        </where>
+    </select>
+    
+    <select id="selectChronicdis" resultMap="ChronicdisResult" resultType="Chronicdis">
+        <include refid="selectChronidisVo"/>
+        where ill_code = #{illCode}
+    </select>
+    
+    <insert id="saveChronicdis" parameterType="Chronicdis">
+        insert into t_chronicdis(
+        <if test="illCode != null and illCode != ''">ill_code,</if>
+        <if test="illName != null and illName != ''">ill_name,</if>
+        <if test="pyCode != null and pyCode != ''">py_code,</if>
+        <if test="wbCode != null and wbCode != ''">wb_code</if>
+        )value (
+        <if test="illCode != null and illCode != ''">#{illCode},</if>
+        <if test="illName != null and illName != ''">#{illName},</if>
+        <if test="pyCode != null and pyCode != ''">#{pyCode},</if>
+        <if test="wbCode != null and wbCode != ''">#{wbCode}</if>
+        )
+    </insert>
+
+    <update id="updateChronicdis" parameterType="Chronicdis">
+        update t_chronicdis
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="illName != null and illName != ''">ill_name=#{illName},</if>
+            <if test="pyCode != null and pyCode != ''">py_code=#{pyCode},</if>
+            <if test="wbCode != null and wbCode != ''">wb_code=#{wbCode}</if>
+        </trim>
+        where ill_code = #{illCode}
+    </update>
+
+    <delete id="deleteChronicdis" parameterType="String">
+        delete from t_chronicdis where ill_code = #{illCode}
+    </delete>
+</mapper>

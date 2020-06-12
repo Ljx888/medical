@@ -10,11 +10,16 @@
  */
 package com.gx.wuzhou.medical.controller;
 
+import com.gx.wuzhou.medical.domain.SysMenu;
 import com.gx.wuzhou.medical.domain.SysUser;
+import com.gx.wuzhou.medical.service.ISysMenuService;
 import com.gx.wuzhou.medical.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -28,10 +33,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LoginController {
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private ISysMenuService menuService;
 
     @PostMapping("login")
-    public String login(SysUser user){
-        loginService.login(user);
+    public String login(SysUser user, ModelMap mmap){
+        if (loginService.login(user) != null){
+            List<SysMenu> list = menuService.selectUserMenuList(user.getUserId());
+            mmap.put("list", list);
+        }
         return "/index";
     }
 }

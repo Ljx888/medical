@@ -39,6 +39,14 @@ public interface ISysMenuService {
     public List<SysMenu> selectMenuList(SysMenu menu);
 
     /**
+     * 查询用户权限信息
+     *
+     * @param userId
+     * @return
+     */
+    public List<SysMenu> selectUserMenuList(String userId);
+
+    /**
      * 查询菜单
      *
      * @param menuId

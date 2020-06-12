@@ -3,7 +3,7 @@
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="zh-cn">
 <head>
@@ -35,8 +35,8 @@
         <li><a href="page/menu/list" target="right"><span class="icon-caret-right"></span>菜单管理</a></li>
         <li><a href="page/area/list" target="right"><span class="icon-caret-right"></span>行政管理</a></li>
         <li><a href="page/init/list" target="right"><span class="icon-caret-right"></span>经办管理</a></li>
-        <li><a href="../book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>
-        <li><a href="../column.html" target="right"><span class="icon-caret-right"></span>栏目管理</a></li>
+        <li><a href="page/chronicdis/list" target="right"><span class="icon-caret-right"></span>慢性病分类管理</a></li>
+        <li><a href="page/medical/list" target="right"><span class="icon-caret-right"></span>医疗机构管理</a></li>
     </ul>
     <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
     <ul>
@@ -44,10 +44,13 @@
         <li><a href="../add.html" target="right"><span class="icon-caret-right"></span>添加内容</a></li>
         <li><a href="../cate.html" target="right"><span class="icon-caret-right"></span>分类管理</a></li>
     </ul>
-    <h2><span class="icon-user"></span>课堂考勤</h2>
+    <h2><span class="icon-user"></span>测试动态导航</h2>
     <ul>
-        <li><a href="../list.html" target="right"><span class="icon-caret-right"></span>添加老师</a></li>
-        <li><a href="../add.html" target="right"><span class="icon-caret-right"></span>查询老师</a></li>
+        <c:forEach items="${list}" var="list" varStatus="i">
+            <c:if test="${list.level == 2}">
+                <li><a href="${list.url}/list" target="right"><span class="icon-caret-right"></span>${list.menuName}</a></li>
+            </c:if>
+        </c:forEach>
     </ul>
     <h2><span class="icon-user"></span>个人信息</h2>
     <ul>
