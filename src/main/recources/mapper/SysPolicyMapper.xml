@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.SysPolicyMapper">
+    <resultMap id="PolicyResult" type="SysPolicy">
+        <result property="runyear" column="runyear"/>
+        <result property="maxline" column="maxline"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectPolicyVo">
+        select * from t_policy
+    </sql>
+
+    <select id="selectSysPolicyList" resultMap="PolicyResult" resultType="SysPolicy">
+        <include refid="selectPolicyVo"/>
+        <where>
+            <if test="runyear != null and runyear != ''">runyear = #{runyear}</if>
+            <if test="maxline != null and maxline != ''">maxline = #{maxline}</if>
+        </where>
+    </select>
+
+    <select id="selectSysPolicy" parameterType="String" resultMap="PolicyResult">
+        <include refid="selectPolicyVo"/>
+        where runyear = #{runyear}
+    </select>
+
+    <insert id="saveSysPolicy" parameterType="SysPolicy">
+        insert into t_policy(
+        <if test="runyear != null and runyear != ''">runyear,</if>
+        <if test="maxline != null and maxline != ''">maxline,</if>
+        <if test="status != null and status != ''">status,</if>
+        <if test="remark != null and remark != ''">remark</if>
+        ) value (
+        <if test="runyear != null and runyear != ''">#{runyear},</if>
+        <if test="maxline != null and maxline != ''">#{maxline},</if>
+        <if test="status != null and status != ''">#{status},</if>
+        <if test="remark != null and remark != ''">#{remark}</if>
+        )
+    </insert>
+
+    <update id="updateSysPolicy" parameterType="SysPolicy">
+        update t_policy
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="maxline != null and maxline != ''">maxline=#{maxline},</if>
+            <if test="status != null and status != ''">status=#{status},</if>
+            <if test="remark != null and remark != ''">remark=#{remark}</if>
+        </trim>
+        where runyear=#{runyear}
+    </update>
+
+    <delete id="deleteSysPolicy" parameterType="String">
+        delete from t_policy where runyear = #{runyear}
+    </delete>
+
+</mapper>

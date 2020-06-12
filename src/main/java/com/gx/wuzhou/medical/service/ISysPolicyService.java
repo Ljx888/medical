@@ -1,16 +1,15 @@
 /**
  * Copyright (C), 2019-2020, XXX有限公司
- * FileName: SysPolicyMapper
+ * FileName: ISysPolicyService
  * Author:   Administrator
- * Date:     2020/6/12 0012 17:43
+ * Date:     2020/6/12 0012 19:46
  * Description:
  * History:
  * <author>          <time>          <version>          <desc>
  * 作者姓名           修改时间           版本号              描述
  */
-package com.gx.wuzhou.medical.mapper;
+package com.gx.wuzhou.medical.service;
 
-import com.gx.wuzhou.medical.domain.Institution;
 import com.gx.wuzhou.medical.domain.SysPolicy;
 
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.List;
  * @create 2020/6/12 0012
  * @since 1.0.0
  */
-public interface SysPolicyMapper {
+public interface ISysPolicyService {
     public List<SysPolicy> selectSysPolicyList(SysPolicy policy);
 
     public SysPolicy selectSysPolicy(String runyear);
