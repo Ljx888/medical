@@ -28,6 +28,16 @@
         order by grade, parent
     </select>
 
+    <select id="selectRuralAll" resultMap="AreaResult">
+        <include refid="selectAreaVo"/>
+        where grade = 3
+    </select>
+
+    <select id="selectGroupAll" resultMap="AreaResult" parameterType="String">
+        <include refid="selectAreaVo"/>
+        where parent = #{areaCode} AND grade = 4
+    </select>
+
     <select id="selectInitTree" parameterType="String" resultType="String">
         select concat(a.area_code) as perms
 		from t_area a

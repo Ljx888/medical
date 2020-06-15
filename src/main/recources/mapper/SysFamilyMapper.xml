@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.SysFamilyMapper">
+    <resultMap id="FamilyResultMap" type="SysFamily">
+        <result property="famiCode" column="fami_code"/>
+        <result property="town" column="town"/>
+        <result property="village" column="village"/>
+        <result property="groupNo" column="group_no"/>
+        <result property="persCode" column="pers_code"/>
+        <result property="housePro" column="house_pro"/>
+        <result property="popuNum" column="popu_num"/>
+        <result property="agriNum" column="agri_num"/>
+        <result property="address" column="address"/>
+        <result property="creatTime" column="creat_time"/>
+        <result property="creatOr" column="creat_or"/>
+        <association property="person" column="persCode" javaType="com.gx.wuzhou.medical.domain.SysPerson" resultMap="PersonResultMap"/>
+    </resultMap>
+
+    <resultMap id="PersonResultMap" type="SysPerson">
+        <result property="persCode" column="pers_code"/>
+        <result property="famiCode" column="fami_code"/>
+        <result property="ruralCard" column="rural_card"/>
+        <result property="relation" column="relation"/>
+        <result property="cardId" column="card_Id"/>
+        <result property="persName" column="pers_name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="persPro" column="pers_pro"/>
+        <result property="isRural" column="is_rural"/>
+        <result property="occupation" column="occupation"/>
+        <result property="workUnit" column="work_unit"/>
+        <result property="liveAddress" column="live_address"/>
+        <result property="telephone" column="telephone"/>
+    </resultMap>
+
+    <select id="selectFamilyList" resultMap="FamilyResultMap" resultType="SysFamily">
+        select a.*, b.pers_name from t_family a
+        left join t_person b on a.pers_code = b.pers_code
+        <where>
+            <if test="famiCode != null and famiCode != ''">a.fami_code = #{famiCode}</if>
+            <if test="creatTime != null and creatTime != ''">AND a.creat_time = #{creatTime}</if>
+        </where>
+    </select>
+
+    <select id="selectFamily" parameterType="String" resultMap="FamilyResultMap">
+        select * from t_family where fami_code = #{famiCode}
+    </select>
+
+    <select id="createFamicode" parameterType="String" resultType="String">
+        select max(fami_code) from t_family where group_no = #{groupNo}
+    </select>
+
+    <insert id="insertFamily" parameterType="SysFamily">
+        insert into t_family<trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="famiCode != null and famiCode != ''">fami_code,</if>
+        <if test="town != null and town != ''">town,</if>
+        <if test="village != null and village != ''">village,</if>
+        <if test="groupNo != null and groupNo != ''">group_no,</if>
+        <if test="persCode != null and persCode != ''">pers_code,</if>
+        <if test="housePro != null and housePro != ''">house_pro,</if>
+        <if test="popuNum != null and popuNum != ''">popu_num,</if>
+        <if test="agriNum != null and agriNum != ''">agri_num,</if>
+        <if test="address != null and address != ''">address,</if>
+        <if test="creatTime != null and creatTime != ''">creat_time,</if>
+        <if test="creatOr != null and creatOr != ''">creat_or</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+        <if test="famiCode != null and famiCode != ''">#{famiCode},</if>
+        <if test="town != null and town != ''">#{town},</if>
+        <if test="village != null and village != ''">#{village},</if>
+        <if test="groupNo != null and groupNo != ''">#{groupNo},</if>
+        <if test="persCode != null and persCode != ''">#{persCode},</if>
+        <if test="housePro != null and housePro != ''">#{housePro},</if>
+        <if test="popuNum != null and popuNum != ''">#{popuNum},</if>
+        <if test="agriNum != null and agriNum != ''">#{agriNum},</if>
+        <if test="address != null and address != ''">#{address},</if>
+        <if test="creatTime != null and creatTime != ''">#{creatTime},</if>
+        <if test="creatOr != null and creatOr != ''">#{creatOr}</if>
+    </trim>
+    </insert>
+
+    <update id="updateFamily" parameterType="SysFamily">
+        update t_family
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="town != null and town != ''">town = #{town},</if>
+            <if test="village != null and village != ''">village = #{village},</if>
+            <if test="groupNo != null and groupNo != ''">group_no = #{groupNo},</if>
+            <if test="persCode != null and persCode != ''">pers_code = #{persCode},</if>
+            <if test="housePro != null and housePro != ''">house_pro = #{housePro},</if>
+            <if test="popuNum != null and popuNum != ''">popu_num = #{popuNum},</if>
+            <if test="address != null and address != ''">address += #{address},</if>
+            <if test="creatOr != null and creatOr != ''">creat_or = #{creatOr}</if>
+        </trim>
+        where fami_code = #{famiCode}
+    </update>
+
+    <delete id="deleteFamily" parameterType="String">
+        delete from t_family where fami_code = #{famiCode}
+    </delete>
+</mapper>

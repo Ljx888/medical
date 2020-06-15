@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.TPayperiodMapper">
+    <resultMap id="TPayperiodResult" type="TPayperiod">
+        <result property="runyear" column="runyear"/>
+        <result property="amount" column="amount"/>
+        <result property="startime" column="startime"/>
+        <result property="endtime" column="endtime"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="selectPayperiod" parameterType="int" resultMap="TPayperiodResult">
+        select * from t_payperiod where runyear = #{runyear}
+    </select>
+
+    </mapper>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.SysPersonMapper">
+    <resultMap id="PersonResultMap" type="SysPerson">
+        <result property="persCode" column="pers_code"/>
+        <result property="famiCode" column="fami_code"/>
+        <result property="ruralCard" column="rural_card"/>
+        <result property="relation" column="relation"/>
+        <result property="cardId" column="card_Id"/>
+        <result property="persName" column="pers_name"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+        <result property="birthday" column="birthday"/>
+        <result property="persPro" column="pers_pro"/>
+        <result property="isRural" column="is_rural"/>
+        <result property="occupation" column="occupation"/>
+        <result property="workUnit" column="work_unit"/>
+        <result property="liveAddress" column="live_address"/>
+        <result property="telephone" column="telephone"/>
+        <association property="payment" column="pers_code" javaType="com.gx.wuzhou.medical.domain.TPayment" resultMap="PaymentResult"/>
+    </resultMap>
+
+    <resultMap id="PaymentResult" type="TPayment">
+        <result property="payNo" column="pay_no"/>
+        <result property="persCode" column="pers_code"/>
+        <result property="payCost" column="pay_cost"/>
+        <result property="runyear" column="runyear"/>
+        <result property="paytime" column="paytime"/>
+        <result property="creatOr" column="creat_or"/>
+    </resultMap>
+
+    <select id="selectPersonList" resultMap="PersonResultMap" resultType="SysPerson">
+        select * from t_person a
+        <where>
+            <if test="famiCode != null and famiCode != ''">fami_code = #{famiCode}</if>
+        </where>
+    </select>
+
+    <select id="selectPersonAndPaymentList" parameterType="String" resultMap="PersonResultMap">
+        select * from t_person where pers_code like concat('%', #{areaCode}, '%') AND pers_name like concat('%', #{persName}, '%') AND relation = 1
+    </select>
+
+    <select id="findByPersonAndPayment" resultMap="PersonResultMap">
+        select * from t_person where fami_code = #{famiCode} and pers_code not in (
+        select pers_code from t_payment where fami_code = #{famiCode} and runyear = #{runyear}
+        )
+    </select>
+
+    <select id="createPerscode" parameterType="String" resultType="String">
+        select max(pers_code) from t_person where pers_code like concat('%', #{famiCode}, '%')
+    </select>
+
+    <select id="selectPerson" parameterType="String" resultMap="PersonResultMap">
+        select * from t_person where pers_code = #{persCode}
+    </select>
+
+    <insert id="insertPerson" parameterType="SysPerson">
+        insert into t_person(
+        <if test="persCode != null and persCode != ''">pers_code,</if>
+        <if test="famiCode != null and famiCode != ''">fami_code,</if>
+        <if test="ruralCard != null and ruralCard != ''">rural_card,</if>
+        <if test="relation != null and relation != ''">relation,</if>
+        <if test="cardId != null and cardId != ''">card_id,</if>
+        <if test="persName != null and persName != ''">pers_name,</if>
+        <if test="age != null and age != ''">age,</if>
+        <if test="sex != null and sex != ''">sex,</if>
+        <if test="birthday != null and birthday != ''">birthday,</if>
+        <if test="persPro != null and persPro != ''">pers_pro,</if>
+        <if test="isRural != null and isRural != ''">is_rural,</if>
+        <if test="occupation != null and occupation != ''">occupation,</if>
+        <if test="workUnit != null and workUnit != ''">work_unit,</if>
+        <if test="liveAddress != null and liveAddress != ''">live_address,</if>
+        <if test="telephone != null and telephone != ''">telephone</if>
+        )value (
+        <if test="persCode != null and persCode != ''">#{persCode},</if>
+        <if test="famiCode != null and famiCode != ''">#{famiCode},</if>
+        <if test="ruralCard != null and ruralCard != ''">#{ruralCard},</if>
+        <if test="relation != null and relation != ''">#{relation},</if>
+        <if test="cardId != null and cardId != ''">#{cardId},</if>
+        <if test="persName != null and persName != ''">#{persName},</if>
+        <if test="age != null and age != ''">#{age},</if>
+        <if test="sex != null and sex != ''">#{sex},</if>
+        <if test="birthday != null and birthday != ''">#{birthday},</if>
+        <if test="persPro != null and persPro != ''">#{persPro},</if>
+        <if test="isRural != null and isRural != ''">#{isRural},</if>
+        <if test="occupation != null and occupation != ''">#{occupation},</if>
+        <if test="workUnit != null and workUnit != ''">#{workUnit},</if>
+        <if test="liveAddress != null and liveAddress != ''">#{liveAddress},</if>
+        <if test="telephone != null and telephone != ''">#{telephone}</if>
+        )
+    </insert>
+
+    <update id="updatePerson" parameterType="SysPerson">
+        update t_person
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="famiCode != null and famiCode != ''">fami_code = #{famiCode},</if>
+            <if test="ruralCard != null and ruralCard != ''">rural_card = #{ruralCard},</if>
+            <if test="relation != null and relation != ''">relation = #{relation},</if>
+            <if test="cardId != null and cardId != ''">card_id = #{cardId},</if>
+            <if test="persName != null and persName != ''">pers_name = #{persName},</if>
+            <if test="age != null and age != ''">age = #{age},</if>
+            <if test="sex != null and sex != ''">sex = #{sex},</if>
+            <if test="birthday != null and birthday != ''">birthday = #{birthday},</if>
+            <if test="persPro != null and persPro != ''">pers_pro = #{persPro},</if>
+            <if test="isRural != null and isRural != ''">is_rural = #{isRural},</if>
+            <if test="occupation != null and occupation != ''">occupation = #{occupation},</if>
+            <if test="workUnit != null and workUnit != ''">work_unit = #{workUnit},</if>
+            <if test="liveAddress != null and liveAddress != ''">live_address = #{liveAddress},</if>
+            <if test="telephone != null and telephone != ''">telephone = #{telephone}</if>
+        </trim>
+        where pers_code = #{persCode}
+    </update>
+
+    <delete id="deletePerson" parameterType="String">
+        delete from t_person where fami_code = #{famiCode}
+    </delete>
+
+    <delete id="deletePersonId" parameterType="String">
+        delete from t_person where pers_code = #{persCode}
+    </delete>
+</mapper>

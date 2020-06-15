@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.TPaymentMapper">
+    <resultMap id="PaymentResult" type="TPayment">
+        <result property="payNo" column="pay_no"/>
+        <result property="persCode" column="pers_code"/>
+        <result property="payCost" column="pay_cost"/>
+        <result property="runyear" column="runyear"/>
+        <result property="paytime" column="paytime"/>
+        <result property="creatOr" column="creat_or"/>
+        <result property="famiCode" column="fami_code"/>
+    </resultMap>
+
+    <insert id="insertPayment" parameterType="TPayment">
+        insert into t_payment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="payNo != null and payNo != ''">pay_no,</if>
+        <if test="persCode != null and persCode != ''">pers_code,</if>
+        <if test="payCost != null and payCost != ''">pay_cost,</if>
+        <if test="runyear != null and runyear != ''">runyear,</if>
+        <if test="paytime != null">paytime,</if>
+        <if test="creatOr != null and creatOr != ''">creat_or,</if>
+        <if test="famiCode != null and famiCode != ''">fami_code</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="payNo != null and payNo != ''">#{payNo},</if>
+            <if test="persCode != null and persCode != ''">#{persCode},</if>
+            <if test="payCost != null and payCost != ''">#{payCost},</if>
+            <if test="runyear != null and runyear != ''">#{runyear},</if>
+            <if test="paytime != null">#{paytime},</if>
+            <if test="creatOr != null and creatOr != ''">#{creatOr},</if>
+            <if test="famiCode != null and famiCode != ''">#{famiCode}</if>
+        </trim>
+    </insert>
+</mapper>

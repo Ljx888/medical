@@ -39,6 +39,21 @@ public interface AreaMapper {
     public List<Area> selectAreaList(Area area);
 
     /**
+     * 查询所有农村
+     *
+     * @return
+     */
+    public List<Area> selectRuralAll();
+
+    /**
+     * 查询组
+     *
+     * @param areaCode
+     * @return
+     */
+    public List<Area> selectGroupAll(String areaCode);
+
+    /**
      * 查询角色权限
      *
      * @param agenCode

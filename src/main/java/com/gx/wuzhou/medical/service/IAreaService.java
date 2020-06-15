@@ -42,6 +42,21 @@ public interface IAreaService {
     public List<String> selectInitTree(String agenCode);
 
     /**
+     * 查询所有农村
+     *
+     * @return
+     */
+    public List<Area> selectRuralAll();
+
+    /**
+     * 查询组
+     *
+     * @param areaCode
+     * @return
+     */
+    public List<Area> selectGroupAll(String areaCode);
+
+    /**
      *根据用户编号查询
      *
      * @param init

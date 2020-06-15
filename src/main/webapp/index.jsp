@@ -38,6 +38,8 @@
         <li><a href="page/chronicdis/list" target="right"><span class="icon-caret-right"></span>慢性病分类管理</a></li>
         <li><a href="page/medical/list" target="right"><span class="icon-caret-right"></span>医疗机构管理</a></li>
         <li><a href="page/policy/list" target="right"><span class="icon-caret-right"></span>慢性病政策管理</a></li>
+        <li><a href="page/family/list" target="right"><span class="icon-caret-right"></span>家庭档案管理</a></li>
+        <li><a href="page/payment/input" target="right"><span class="icon-caret-right"></span>参合报销登记管理</a></li>
     </ul>
     <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
     <ul>

@@ -44,8 +44,15 @@ public class AreaController {
     @ResponseBody
     public List<Ztree> roleMenuTree(Institution init){
         List<Ztree> ztrees = areaService.roleMenuZtree(init);
-        System.out.println(ztrees.toString()+"555555555");
         return ztrees;
+    }
+
+    @PostMapping("group")
+    @ResponseBody
+    public List<Area> familyGroup(String areaCode){
+        String areaCodes = areaCode.split("-")[0];
+        List<Area> list = areaService.selectGroupAll(areaCodes);
+        return list;
     }
 
     @GetMapping("list")

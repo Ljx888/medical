@@ -47,6 +47,16 @@ public class AreaServiceImpl implements IAreaService {
     }
 
     @Override
+    public List<Area> selectRuralAll() {
+        return areaMapper.selectRuralAll();
+    }
+
+    @Override
+    public List<Area> selectGroupAll(String areaCode) {
+        return areaMapper.selectGroupAll(areaCode);
+    }
+
+    @Override
     public List<Ztree> roleMenuZtree(Institution init) {
         String agenCode = init.getAgenCode();
         List<Ztree> ztrees = new ArrayList<Ztree>();
