@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.ChroniclnfoMapper">
+    <resultMap id="ChroniclnfoResult" type="ChronicInfo">
+        <result property="id" column="id"/>
+        <result property="persCode" column="pers_code"/>
+        <result property="illCode" column="ill_code"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="status" column="status"/>
+        <result property="creatTime" column="creat_time"/>
+        <result property="creatOr" column="creat_or"/>
+        <association property="person" column="persCode" javaType="com.gx.wuzhou.medical.mapper.SysPersonMapper" resultMap="PersonResult"/>
+        <association property="chronicdis" column="illCode" javaType="com.gx.wuzhou.medical.mapper.ChronicdisMapper" resultMap="ChroResult"/>
+    </resultMap>
+
+    <resultMap id="PersonResult" type="SysPerson">
+        <result property="persCode" column="pers_code"/>
+        <result property="persName" column="pers_name"/>
+    </resultMap>
+
+    <resultMap id="ChroResult" type="Chronicdis">
+        <result property="illCode" column="ill_code"/>
+        <result property="illName" column="ill_name"/>
+    </resultMap>
+
+    <sql id="selectChroniclnfoVo">
+        select a.*, c.pers_name, b.ill_name from t_chroniclnfo a
+        left join t_chronicdis b on a.ill_code = b.ill_code
+        left join t_person c on a.pers_code = c.pers_code
+    </sql>
+
+    <select id="selectChroniclnfoList" resultMap="ChroniclnfoResult" resultType="ChronicInfo">
+        <include refid="selectChroniclnfoVo"/>
+        <where>
+            <if test="persCode != null and persCode != ''">a.pers_code like concat('%', #{persCode}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectChroniclnfo" parameterType="String" resultMap="ChroniclnfoResult">
+        <include refid="selectChroniclnfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertChroniclnfo" parameterType="ChronicInfo">
+        insert into t_chroniclnfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">id,</if>
+            <if test="persCode != null and persCode != ''">pers_code,</if>
+            <if test="illCode != null and illCode != ''">ill_code,</if>
+            <if test="startTime != null and startTime != ''">start_time,</if>
+            <if test="endTime != null and endTime != ''">end_time,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="creatTime != null and creatTime != ''">creat_time,</if>
+            <if test="creatOr != null and creatOr != ''">creat_or,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="persCode != null and persCode != ''">#{persCode},</if>
+            <if test="illCode != null and illCode != ''">#{illCode},</if>
+            <if test="startTime != null and startTime != ''">#{startTime},</if>
+            <if test="endTime != null and endTime != ''">#{endTime},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="creatTime != null and creatTime != ''">#{creatTime},</if>
+            <if test="creatOr != null and creatOr != ''">#{creatOr},</if>
+        </trim>
+    </insert>
+
+    <update id="updateChroniclnfo" parameterType="ChronicInfo">
+        update t_chroniclnfo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="persCode != null and persCode != ''">pers_code = #{persCode},</if>
+            <if test="illCode != null and illCode != ''">ill_code = #{illCode},</if>
+            <if test="startTime != null and startTime != ''">start_time = #{startTime},</if>
+            <if test="endTime != null and endTime != ''">end_time = #{endTime},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="creatTime != null and creatTime != ''">creat_time = #{creatTime},</if>
+            <if test="creatOr != null and creatOr != ''">creat_or = #{creatOr},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteChroniclnfo" parameterType="String">
+        delete from t_chroniclnfo where id = #{id}
+    </delete>
+
+</mapper>
