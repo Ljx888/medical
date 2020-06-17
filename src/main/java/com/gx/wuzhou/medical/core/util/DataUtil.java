@@ -16,6 +16,7 @@ import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -59,6 +60,13 @@ public class DataUtil {
         DateTimeFormatter df = DateTimeFormat.forPattern(pattern);
         String dateStr = df.print(datetime);
         return dateStr;
+    }
+
+    public static String format(){
+        Date date = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String data = df.format(date);
+        return data;
     }
 
     /**

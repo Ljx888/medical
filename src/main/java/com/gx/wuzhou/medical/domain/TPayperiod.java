@@ -41,6 +41,10 @@ public class TPayperiod extends BaseUtil {
      * 状态：1 启用，0 停用
      */
     private String status;
+    /**
+     * 报销比例
+     */
+    private double scale;
 
     public int getRunyear() {
         return runyear;
@@ -82,6 +86,14 @@ public class TPayperiod extends BaseUtil {
         this.status = status;
     }
 
+    public double getScale() {
+        return scale;
+    }
+
+    public void setScale(double scale) {
+        this.scale = scale;
+    }
+
     @Override
     public String toString() {
         return "TPayperiod{" +
@@ -90,6 +102,7 @@ public class TPayperiod extends BaseUtil {
                 ", startime='" + startime + '\'' +
                 ", endtime='" + endtime + '\'' +
                 ", status='" + status + '\'' +
+                ", scale=" + scale +
                 '}';
     }
 }

@@ -52,6 +52,8 @@ public class TPayment extends BaseUtil {
      */
     private String creatOr;
 
+    private SysPerson person;
+
     public String getPayNo() {
         return payNo;
     }
@@ -108,6 +110,14 @@ public class TPayment extends BaseUtil {
         this.famiCode = famiCode;
     }
 
+    public SysPerson getPerson() {
+        return person;
+    }
+
+    public void setPerson(SysPerson person) {
+        this.person = person;
+    }
+
     @Override
     public String toString() {
         return "TPayment{" +
@@ -116,7 +126,9 @@ public class TPayment extends BaseUtil {
                 ", payCost=" + payCost +
                 ", runyear=" + runyear +
                 ", paytime=" + paytime +
+                ", famiCode='" + famiCode + '\'' +
                 ", creatOr='" + creatOr + '\'' +
+                ", person=" + person +
                 '}';
     }
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gx.wuzhou.medical.mapper.TReimbursementMapper">
+    <resultMap id="TReimbursementResult" type="TReimbursement">
+        <result property="reimbursementNumber" column="reimbursement_number"/>
+        <result property="cardId" column="card_id"/>
+        <result property="persName" column="pers_name"/>
+        <result property="illName" column="ill_name"/>
+        <result property="creatTime" column="creat_time"/>
+        <result property="medicalSum" column="medical_sum"/>
+        <result property="medicalCode" column="medical_code"/>
+        <result property="visitTime" column="visit_time"/>
+        <result property="proprotion" column="proprotion"/>
+        <result property="money" column="money"/>
+        <result property="creatOr" column="creat_or"/>
+        <result property="status" column="status"/>
+        <result property="isRemittance" column="is_remittance"/>
+    </resultMap>
+
+    <select id="selectMoneyCount" parameterType="String" resultType="Double">
+        select IFNULL(sum(money), 0) from t_reimbursement where card_id = #{cardId}
+    </select>
+
+    <select id="selectTReimbursementList" resultMap="TReimbursementResult" resultType="TReimbursement">
+        select * from t_reimbursement
+        <where>
+            <if test="cardId != null and cardId != ''">card_id like concat('%', #{cardId}, '%')</if>
+            <if test="persName != null and persName != ''">AND pers_name like concat('%', #{persName}, '%')</if>
+            <if test="creatTime != null and creatTime != ''">AND creat_time like concat('%', #{creatTime}, '%')</if>
+            <if test="status != null and status != 0">AND status = #{status}</if>
+            <if test="isRemittance != null and isRemittance != 0">AND is_remittance = #{isRemittance}</if>
+        </where>
+    </select>
+
+    <insert id="insertTReimbursement" parameterType="TReimbursement">
+    insert into t_reimbursement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="reimbursementNumber != null and reimbursementNumber != ''">reimbursement_number,</if>
+            <if test="cardId != null and cardId != ''">card_id,</if>
+            <if test="persName != null and persName != ''">pers_name,</if>
+            <if test="illName != null and illName != ''">ill_name,</if>
+            <if test="creatTime != null and creatTime != ''">creat_time,</if>
+            <if test="medicalSum != null and medicalSum != ''">medical_sum,</if>
+            <if test="medicalCode != null and medicalCode != ''">medical_code,</if>
+            <if test="visitTime != null and visitTime != ''">visit_time,</if>
+            <if test="proprotion != null and proprotion != ''">proprotion,</if>
+            <if test="money != null and money != ''">money,</if>
+            <if test="creatOr != null and creatOr != ''">creat_or,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="isRemittance != null">is_remittance</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="reimbursementNumber != null and reimbursementNumber != ''">#{reimbursementNumber},</if>
+            <if test="cardId != null and cardId != ''">#{cardId},</if>
+            <if test="persName != null and persName != ''">#{persName},</if>
+            <if test="illName != null and illName != ''">#{illName},</if>
+            <if test="creatTime != null and creatTime != ''">#{creatTime},</if>
+            <if test="medicalSum != null and medicalSum != ''">#{medicalSum},</if>
+            <if test="medicalCode != null and medicalCode != ''">#{medicalCode},</if>
+            <if test="visitTime != null and visitTime != ''">#{visitTime},</if>
+            <if test="proprotion != null and proprotion != ''">#{proprotion},</if>
+            <if test="money != null and money != ''">#{money},</if>
+            <if test="creatOr != null and creatOr != ''">#{creatOr},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="isRemittance != null">#{isRemittance}</if>
+        </trim>
+    </insert>
+
+    <update id="updateTReimbursement" parameterType="TReimbursement">
+        update t_reimbursement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="status != null and status != 0">status = #{status},</if>
+            <if test="isRemittance != null and isRemittance != 0">is_remittance = #{isRemittance}</if>
+        </trim>
+        where reimbursement_number = #{reimbursementNumber}
+    </update>
+</mapper>

@@ -10,7 +10,9 @@
  */
 package com.gx.wuzhou.medical.service;
 
+import com.gx.wuzhou.medical.domain.TPayment;
 import com.gx.wuzhou.medical.domain.TPayperiod;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -28,4 +30,13 @@ public interface ITpaymentService {
      * @return
      */
     public int insert(String persCodes, TPayperiod payperiod, String famiCode);
+
+    /**
+     * 查询出对应的参合农民信息
+     *
+     * @param cardUd
+     * @param runtime
+     * @return
+     */
+    public TPayment selectPaymentPersCode(String cardUd, int runtime);
 }

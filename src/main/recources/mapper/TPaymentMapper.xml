@@ -11,8 +11,21 @@
         <result property="paytime" column="paytime"/>
         <result property="creatOr" column="creat_or"/>
         <result property="famiCode" column="fami_code"/>
+        <association property="person" column="pers_code" javaType="com.gx.wuzhou.medical.domain.SysPerson" resultMap="SysPersonResult"/>
     </resultMap>
 
+    <resultMap id="SysPersonResult" type="SysPerson">
+        <result property="persCode" column="pers_code"/>
+        <result property="cardId" column="card_id"/>
+        <result property="persName" column="pers_name"/>
+    </resultMap>
+
+    <select id="selectPaymentPersCode" resultMap="PaymentResult">
+        select a.pers_code from t_payment a
+        left join t_person b on a.pers_code = b.pers_code
+        where b.card_id = #{cardId} and a.runyear = #{runyear}
+    </select>
+    
     <insert id="insertPayment" parameterType="TPayment">
         insert into t_payment
         <trim prefix="(" suffix=")" suffixOverrides=",">

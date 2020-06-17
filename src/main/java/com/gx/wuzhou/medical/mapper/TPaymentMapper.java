@@ -12,6 +12,7 @@ package com.gx.wuzhou.medical.mapper;
 
 import com.gx.wuzhou.medical.domain.TPayment;
 import com.gx.wuzhou.medical.domain.TPayperiod;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 〈一句话功能简述〉<br> 
@@ -22,6 +23,14 @@ import com.gx.wuzhou.medical.domain.TPayperiod;
  * @since 1.0.0
  */
 public interface TPaymentMapper {
+    /**
+     * 查询出对应的参合农民信息
+     *
+     * @param cardUd
+     * @param runyear
+     * @return
+     */
+    public TPayment selectPaymentPersCode(@Param("cardId")String cardUd, @Param("runyear") int runyear);
     /**
      * 添加
      *

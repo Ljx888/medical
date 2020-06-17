@@ -41,6 +41,9 @@
         <li><a href="page/family/list" target="right"><span class="icon-caret-right"></span>家庭档案管理</a></li>
         <li><a href="page/payment/input" target="right"><span class="icon-caret-right"></span>参合报销登记管理</a></li>
         <li><a href="page/chronicinfo/list" target="right"><span class="icon-caret-right"></span>慢性证管理</a></li>
+        <li><a href="page/reimbursement/list" target="right"><span class="icon-caret-right"></span>慢性报销管理</a></li>
+        <li><a href="page/reimbursement/listStatus" target="right"><span class="icon-caret-right"></span>审核慢病报销管理</a></li>
+        <li><a href="page/reimbursement/listRemittance" target="right"><span class="icon-caret-right"></span>汇款审核报销管理</a></li>
     </ul>
     <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
     <ul>

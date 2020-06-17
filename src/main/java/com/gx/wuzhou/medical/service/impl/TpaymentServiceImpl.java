@@ -43,4 +43,9 @@ public class TpaymentServiceImpl implements ITpaymentService {
         paymentMapper.insertPayment(payment);
         return 0;
     }
+
+    @Override
+    public TPayment selectPaymentPersCode(String cardUd, int runtime) {
+        return paymentMapper.selectPaymentPersCode(cardUd, runtime);
+    }
 }

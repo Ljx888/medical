@@ -8,7 +8,7 @@
         <result property="famiCode" column="fami_code"/>
         <result property="ruralCard" column="rural_card"/>
         <result property="relation" column="relation"/>
-        <result property="cardId" column="card_Id"/>
+        <result property="cardId" column="card_id"/>
         <result property="persName" column="pers_name"/>
         <result property="age" column="age"/>
         <result property="sex" column="sex"/>
