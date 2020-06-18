@@ -25,12 +25,17 @@
 </head>
 
 <body>
-<form method="post" action="page/chronicdis/list" id="listform">
+<form method="get" action="page/chronicdis/list" id="listform">
     <div class="panel admin-panel">
         <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
             <ul class="search" style="padding-left:10px;">
-                <li> <a class="button border-main icon-plus-square-o" href="page/family/input"> 添加内容</a> </li>
+                <c:if test="${user.role.roleId == 'R203'}">
+                    <li> <a class="button border-main icon-plus-square-o" onclick="hehe()"> 添加内容</a> </li>
+                </c:if>
+                <c:if test="${user.role.roleId != 'R203'}">
+                    <li> <a class="button border-main icon-plus-square-o" href="page/family/input"> 添加内容</a> </li>
+                </c:if>
                 <li>搜索：</li>
                 <li>
                     <input type="text" placeholder="请输入搜索疾病名称" name="illName" class="input" style="width:250px; line-height:17px;display:inline-block" />
@@ -64,10 +69,12 @@
                     <td>${list.creatOr}</td>
                     <td>
                         <div class="button-group">
-                            <a class="button border-main" href="page/family/find?famiCode=${list.famiCode}&popuNum=${list.popuNum}"><span class="icon-adn"></span>添加家人信息</a>
-                            <a class="button border-main" href="page/family/get?persCode=${list.persCode}"><span class="icon-edit"></span> 修改</a>
-                            <a class="button border-main" href="page/family/person?famiCode=${list.famiCode}"><span class="icon-anchor"></span> 查看家庭信息</a>
-                            <a class="button border-red" href="page/family/del?famiCode=${list.famiCode}"><span class="icon-trash-o"></span> 删除</a>
+                            <c:if test="${user.role.roleId != 'R203'}">
+                                <a class="button border-main" href="page/family/find?famiCode=${list.famiCode}&popuNum=${list.popuNum}"><span class="icon-adn"></span>添加家人信息</a>
+                                <a class="button border-main" href="page/family/get?persCode=${list.persCode}"><span class="icon-edit"></span> 修改</a>
+                                <a class="button border-main" href="page/family/person?famiCode=${list.famiCode}"><span class="icon-anchor"></span> 查看家庭信息</a>
+                                <a class="button border-red" href="page/family/del?famiCode=${list.famiCode}"><span class="icon-trash-o"></span> 删除</a>
+                            </c:if>
                         </div>
                     </td>
                 </tr>
@@ -94,6 +101,11 @@
         </c:choose>
         <span style="margin-left: 10px">当前为第${page.currentPage}页|一共${page.totalPage}页</span>
     </div>
+    <script type="text/javascript">
+        function hehe(){
+            alert("请问， 你是？？？")
+        }
+    </script>
 </form>
 </body>
 

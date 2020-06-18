@@ -29,7 +29,7 @@ public interface ITpaymentService {
      * @param persCodes
      * @return
      */
-    public int insert(String persCodes, TPayperiod payperiod, String famiCode);
+    public int insert(String persCodes, TPayperiod payperiod, String famiCode, String creatOr);
 
     /**
      * 查询出对应的参合农民信息

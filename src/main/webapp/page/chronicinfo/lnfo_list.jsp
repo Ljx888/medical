@@ -31,13 +31,17 @@
         <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
             <ul class="search" style="padding-left:10px;">
-                <li> <a class="button border-main icon-plus-square-o" href="page/chronicinfo/input"> 添加内容</a> </li>
+                <c:if test="${user.role.roleId != 'R203'}">
+                    <li> <a class="button border-main icon-plus-square-o" href="page/chronicinfo/input"> 添加内容</a> </li>
+                </c:if>
                 <li>搜索：</li>
                 <li>
                     <input type="text" placeholder="请输入搜索农合编号" name="persCode" class="input" style="width:250px; line-height:17px;display:inline-block" />
                     <button class="button border-main icon-search"  type="submit"> 搜索</button></li>
                 <li>
-                    <button class="button border-main icon-file-excel-o" onclick="tableToExcel('item','慢病登记记录')">导出</button>
+                    <c:if test="${user.role.roleId != 'R203'}">
+                        <button class="button border-main icon-file-excel-o" onclick="tableToExcel('item','慢病登记记录')">导出</button>
+                    </c:if>
                 </li>
             </ul>
         </div>
@@ -71,8 +75,10 @@
                     <td>${list.creatOr}</td>
                     <td>
                         <div class="button-group">
-                            <a class="button border-main" href="page/chronicinfo/get?id=${list.id}"><span class="icon-edit"></span> 修改</a>
-                            <a class="button border-red" href="page/chronicinfo/del?id=${list.id}"><span class="icon-trash-o"></span> 删除</a>
+                            <c:if test="${user.role.roleId != 'R203'}">
+                                <a class="button border-main" href="page/chronicinfo/get?id=${list.id}"><span class="icon-edit"></span> 修改</a>
+                                <a class="button border-red" href="page/chronicinfo/del?id=${list.id}"><span class="icon-trash-o"></span> 删除</a>
+                            </c:if>
                         </div>
                     </td>
                 </tr>

@@ -26,7 +26,7 @@
 </head>
 
 <body>
-<form method="get" action="page/init/list" id="listform">
+<form method="get" action="page/user/list" id="listform">
     <div class="panel admin-panel">
         <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
@@ -48,7 +48,7 @@
                 <th width="310">操作</th>
             </tr>
 
-            <c:forEach items="${list}" var="list" varStatus="i">
+            <c:forEach items="${pageInfo.list}" var="list" varStatus="i">
                 <tr>
                     <td>${i.index}</td>
                     <td>${list.userId}</td>
@@ -72,23 +72,18 @@
         </table>
     </div>
     <div class="pagelist">
-        <c:choose>
-            <c:when  test="${page.hasPrePage}"><a href="userServlet?type=list&currentPage=1">首页</a>
-                <a href="userServlet?type=list&currentPage=${page.currentPage-1}">上一页</a>
-            </c:when>
-            <c:otherwise>首页 | 上一页</c:otherwise>
-        </c:choose>
-        <c:forEach var="i" begin="1" end="${page.totalPage}" step="1">
-            <a href="userServlet?type=list&currentPage=${i}">${i}</a>
-        </c:forEach>
-        <c:choose>
-            <c:when test="${page.hasNextPage}">
-                <a href="userServlet?type=list&currentPage=${page.currentPage+1}">下一页</a>|
-                <a href="userServlet?type=list&currentPage=${page.totalPage}">尾页</a>
-            </c:when>
-            <c:otherwise>下一页 | 尾页</c:otherwise>
-        </c:choose>
-        <span style="margin-left: 10px">当前为第${page.currentPage}页|一共${page.totalPage}页</span>
+        <p>当前 ${pageInfo.pageNum }页,总${pageInfo.pages }
+            页,总 ${pageInfo.total } 条记录</p>
+    <a href="page/user/list?pageNo=${pageInfo.firstPage}">第一页</a>
+    <c:if test="${pageInfo.hasPreviousPage }">
+        <a href="page/user/list?pageNo=${pageInfo.pageNum-1}">上一页</a>
+    </c:if>
+
+    <c:if test="${pageInfo.hasNextPage }">
+        <a href="page/user/list?pageNo=${pageInfo.pageNum+1}">下一页</a>
+    </c:if>
+
+    <a href="page/user/list?pageNo=${pageInfo.lastPage}">最后页</a>
     </div>
 </form>
 </body>

@@ -10,6 +10,8 @@
  */
 package com.gx.wuzhou.medical.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.gx.wuzhou.medical.core.domain.Ztree;
 import com.gx.wuzhou.medical.domain.SysMenu;
 import com.gx.wuzhou.medical.domain.SysRole;
@@ -17,10 +19,7 @@ import com.gx.wuzhou.medical.service.ISysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,9 +46,12 @@ public class SysMenuController{
     }
 
     @GetMapping("list")
-    public String menuList(SysMenu menu, ModelMap mmap){
+    public String menuList(SysMenu menu, ModelMap mmap, @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo){
+        Integer pageSize = 5;
+        PageHelper.startPage(pageNo, pageSize);
         List<SysMenu> list = menuService.selectMenuList(menu);
-        mmap.put("list", list);
+        PageInfo<SysMenu> pageInfo = new PageInfo<SysMenu>(list);
+        mmap.put("pageInfo", pageInfo);
         return "menu_list";
     }
 

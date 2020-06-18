@@ -10,6 +10,8 @@
  */
 package com.gx.wuzhou.medical.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.gx.wuzhou.medical.domain.Institution;
 import com.gx.wuzhou.medical.domain.SysRole;
 import com.gx.wuzhou.medical.domain.SysUser;
@@ -22,6 +24,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -44,9 +47,13 @@ public class SysUserController {
     private InstitutionService initService;
 
     @GetMapping("list")
-    public String list(ModelMap mmap, SysUser user){
+    public String list(ModelMap mmap, SysUser user, @RequestParam(defaultValue="1",required=true,value="pageNo") Integer pageNo){
+        Integer pageSize = 5;
+        PageHelper.startPage(pageNo, pageSize);
+
         List<SysUser> list = userService.selectUserList(user);
-        mmap.put("list", list);
+        PageInfo<SysUser> pageInfo = new PageInfo<SysUser>(list);
+        mmap.put("pageInfo", pageInfo);
         return "user_list";
     }
 

@@ -31,7 +31,7 @@ public class TpaymentServiceImpl implements ITpaymentService {
     @Autowired
     private TPaymentMapper paymentMapper;
     @Override
-    public int insert(String persCodes, TPayperiod payperiod, String famiCode) {
+    public int insert(String persCodes, TPayperiod payperiod, String famiCode, String creatOr) {
         TPayment payment = new TPayment();
         payment.setPayNo(UUIDUtil.uuid());
         payment.setPersCode(persCodes);
@@ -39,6 +39,7 @@ public class TpaymentServiceImpl implements ITpaymentService {
         payment.setPaytime(new java.util.Date());
         payment.setPayCost(payperiod.getAmount());
         payment.setFamiCode(famiCode);
+        payment.setCreatOr(creatOr);
 
         paymentMapper.insertPayment(payment);
         return 0;

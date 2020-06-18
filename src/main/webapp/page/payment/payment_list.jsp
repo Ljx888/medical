@@ -49,12 +49,11 @@
 </head>
 
 <body>
-<form method="get" action="page/payment/list" id="listform">
+<form method="get" action="page/payment/input" id="listform">
     <div class="panel admin-panel">
         <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong> <a href="" style="float:right; display:none;">添加字段</a></div>
         <div class="padding border-bottom">
             <ul class="search" style="padding-left:10px;">
-                <li> <a class="button border-main icon-plus-square-o" href="add.html"> 添加内容</a> </li>
                 <li>搜索：</li>
                     <li>
                         <select id="village" name="villages" class="input" style="width:200px; line-height:17px;" onchange="chooseGroup()">
@@ -93,7 +92,9 @@
                     <td>${item.cardId}</td>
                     <td>
                         <div class="button-group">
-                            <a class="button border-main" href="page/payment/members?famiCode=${item.famiCode}"><span class="icon-edit"></span> 缴费</a>
+                            <c:if test="${user.role.roleId != 'R203'}">
+                                <a class="button border-main" href="page/payment/members?famiCode=${item.famiCode}"><span class="icon-edit"></span> 缴费</a>
+                            </c:if>
                         </div>
                     </td>
                 </tr>

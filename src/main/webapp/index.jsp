@@ -14,43 +14,18 @@
     <title>慢性病报销系统V1.0</title>
     <link rel="stylesheet" href="css/pintuer.css">
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="shortcut icon" href="images/logo.jpg">
     <script src="js/jquery.js"></script>
-    <script src="js/pintuer.js"></script>
 </head>
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
     <div class="logo margin-big-left fadein-top">
         <h1><img src="/images/logo.jpg" class="radius-circle rotate-hover" height="50" alt="" />慢性病报销系统</h1>
     </div>
-    <div class="head-l" ><a href="" target="_blank" style="color:#FFF" ><span class="icon-user"></span> 欢迎 admin</a>&nbsp;&nbsp;<a class="button button-little bg-green" href="" target="_blank" ><span class="icon-home"></span> 首页</a> &nbsp;&nbsp;<a class="button button-little bg-red" href="../login.html"><span class="icon-power-off"></span> 退出登录</a> </div>
+    <div class="head-l" ><a href="" target="_blank" style="color:#FFF" ><span class="icon-user"></span> 欢迎 ${user.fullName}</a>&nbsp;&nbsp;<a class="button button-little bg-green" href="" target="_blank" ><span class="icon-home"></span> 首页</a> &nbsp;&nbsp;<a class="button button-little bg-red" href="quit"><span class="icon-power-off"></span> 退出登录</a> </div>
 </div>
 <div class="leftnav">
     <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
-
-
-    <h2><span class="icon-user"></span>基本设置</h2>
-    <ul style="display:block">
-        <li><a href="page/user/list" target="right"><span class="icon-caret-right"></span>用户管理</a></li>
-        <li><a href="page/role/list" target="right"><span class="icon-caret-right"></span>角色管理</a></li>
-        <li><a href="page/menu/list" target="right"><span class="icon-caret-right"></span>菜单管理</a></li>
-        <li><a href="page/area/list" target="right"><span class="icon-caret-right"></span>行政管理</a></li>
-        <li><a href="page/init/list" target="right"><span class="icon-caret-right"></span>经办管理</a></li>
-        <li><a href="page/chronicdis/list" target="right"><span class="icon-caret-right"></span>慢性病分类管理</a></li>
-        <li><a href="page/medical/list" target="right"><span class="icon-caret-right"></span>医疗机构管理</a></li>
-        <li><a href="page/policy/list" target="right"><span class="icon-caret-right"></span>慢性病政策管理</a></li>
-        <li><a href="page/family/list" target="right"><span class="icon-caret-right"></span>家庭档案管理</a></li>
-        <li><a href="page/payment/input" target="right"><span class="icon-caret-right"></span>参合报销登记管理</a></li>
-        <li><a href="page/chronicinfo/list" target="right"><span class="icon-caret-right"></span>慢性证管理</a></li>
-        <li><a href="page/reimbursement/list" target="right"><span class="icon-caret-right"></span>慢性报销管理</a></li>
-        <li><a href="page/reimbursement/listStatus" target="right"><span class="icon-caret-right"></span>审核慢病报销管理</a></li>
-        <li><a href="page/reimbursement/listRemittance" target="right"><span class="icon-caret-right"></span>汇款审核报销管理</a></li>
-    </ul>
-    <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
-    <ul>
-        <li><a href="../list.html" target="right"><span class="icon-caret-right"></span>内容管理</a></li>
-        <li><a href="../add.html" target="right"><span class="icon-caret-right"></span>添加内容</a></li>
-        <li><a href="../cate.html" target="right"><span class="icon-caret-right"></span>分类管理</a></li>
-    </ul>
     <h2><span class="icon-user"></span>测试动态导航</h2>
     <ul>
         <c:forEach items="${list}" var="list" varStatus="i">
@@ -58,31 +33,12 @@
                 <li><a href="${list.url}/list" target="right"><span class="icon-caret-right"></span>${list.menuName}</a></li>
             </c:if>
         </c:forEach>
-    </ul>
-    <h2><span class="icon-user"></span>个人信息</h2>
-    <ul>
-        <li><a href="../list.html" target="right"><span class="icon-caret-right"></span>个人信息管理</a></li>
-        <li><a href="../add.html" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
-    </ul>
-    <h2><span class="icon-user"></span>学生管理</h2>
-    <ul>
-        <li><a href="../admin/addstudent.html" target="right"><span class="icon-caret-right"></span>添加学生</a></li>
-        <li><a href="../add.html" target="right"><span class="icon-caret-right"></span>查询学生</a></li>
-    </ul>
-    <h2><span class="icon-user"></span>老师管理</h2>
-    <ul>
-        <li><a href="../list.html" target="right"><span class="icon-caret-right"></span>添加老师</a></li>
-        <li><a href="../add.html" target="right"><span class="icon-caret-right"></span>查询老师</a></li>
-    </ul>
-    <h2><span class="icon-wrench"></span>班级管理</h2>
-    <ul>
-        <li><a href="../list.html" target="right"><span class="icon-caret-right"></span>录入班级</a></li>
-        <li><a href="../add.html" target="right"><span class="icon-caret-right"></span>查询班级</a></li>
-    </ul>
-    <h2><span class="icon-wrench"></span>课程管理</h2>
-    <ul>
-        <li><a href="../list.html" target="right"><span class="icon-caret-right"></span>录入课程</a></li>
-        <li><a href="../add.html" target="right"><span class="icon-caret-right"></span>查询课程</a></li>
+        <c:if test="${user.role.roleId == 'R201'}">
+            <li><a href="page/reimbursement/listStatus" target="right"><span class="icon-caret-right"></span>审核慢病报销管理</a></li>
+        </c:if>
+        <c:if test="${user.role.roleId == 'R202'}">
+            <li><a href="page/reimbursement/listRemittance" target="right"><span class="icon-caret-right"></span>汇款审核报销管理</a></li>
+        </c:if>
     </ul>
 
 </div>
@@ -102,8 +58,6 @@
 <ul class="bread">
     <li><a href="{:U('Index/info')}" target="right" class="icon-home"> 首页</a></li>
     <li><a href="##" id="a_leader_txt">欢迎界面</a></li>
-    <li><b>当前语言：</b><span style="color:red;">中文</span>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
 </ul>
 <div class="admin">
     <iframe scrolling="auto" rameborder="0" src="welcome.html" name="right" width="100%" height="100%"></iframe>

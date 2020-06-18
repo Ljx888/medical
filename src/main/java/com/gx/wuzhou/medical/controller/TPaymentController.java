@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -48,14 +50,14 @@ public class TPaymentController {
     @Autowired
     private ITpaymentService iTpaymentService;
 
-    @GetMapping("input")
+    @GetMapping("list")
     public String input(ModelMap mmap){
         List<Area> list = areaService.selectRuralAll();
         mmap.put("area", list);
         return "payment_list";
     }
 
-    @GetMapping("list")
+    @GetMapping("input")
     public String list(ModelMap mmap, String villages, String groupNo, String persName){
         String areaCode = villages;
 
@@ -85,15 +87,18 @@ public class TPaymentController {
     }
 
     @PostMapping("add")
-    public String add(String[] persCode){
+    public String add(String[] persCode, HttpServletRequest request){
         String famiCode = "";
         for (String persCodes : persCode){
              String pers = persCodes.split("-")[0];
              famiCode = persCodes.split("-")[1];
 
+            HttpSession session = request.getSession();
+            String creatOr = (String) session.getAttribute("user.fullName");
+
              int paYear = DataUtil.getYear(new java.util.Date());
              TPayperiod payperiod = tpayperiordService.selectPayperiod(paYear);
-             iTpaymentService.insert(pers, payperiod, famiCode);
+             iTpaymentService.insert(pers, payperiod, famiCode, creatOr);
         }
         return "redirect:/page/payment/members?famiCode="+famiCode;
     }

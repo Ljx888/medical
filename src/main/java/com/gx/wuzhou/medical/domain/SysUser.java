@@ -28,6 +28,8 @@ public class SysUser extends BaseUtil {
     private Integer status;  //是否启用
     private String agenCode; //农合机构
 
+    private SysRole role;
+
     private Institution init;
 
     public Integer getId() {
@@ -86,6 +88,14 @@ public class SysUser extends BaseUtil {
         this.init = init;
     }
 
+    public SysRole getRole() {
+        return role;
+    }
+
+    public void setRole(SysRole role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "SysUser{" +
@@ -95,6 +105,8 @@ public class SysUser extends BaseUtil {
                 ", pwd='" + pwd + '\'' +
                 ", status=" + status +
                 ", agenCode='" + agenCode + '\'' +
+                ", role=" + role +
+                ", init=" + init +
                 '}';
     }
 }

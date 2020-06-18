@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -73,12 +75,16 @@ public class SysFamilyController {
     }
 
     @PostMapping("add")
-    public String add(SysFamily family, String villages, String isRurals, SysPerson person){
+    public String add(SysFamily family, String villages, String isRurals, SysPerson person, HttpServletRequest request){
         family.setVillage(villages.split("-")[0]);
         family.setTown(villages.split("-")[1]);
         family.setPersCode(person.getPersCode());
         family.setPopuNum(1);
         family.setAgriNum(1);
+
+        HttpSession session = request.getSession();
+        String creatOr = (String) session.getAttribute("user.fullName");
+        family.setCreatOr(creatOr);
 
         person.setRelation("1");
         person.setRural("1".equals(isRurals)?true:false);

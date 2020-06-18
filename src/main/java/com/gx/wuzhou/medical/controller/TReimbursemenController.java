@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -75,9 +77,13 @@ public class TReimbursemenController {
     }
 
     @PostMapping("add")
-    public String add(TReimbursement reimbursement){
+    public String add(TReimbursement reimbursement, HttpServletRequest request){
         reimbursement.setReimbursementNumber(UUIDUtil.uuid());
         reimbursement.setCreatTime(DataUtil.format());
+
+        HttpSession session = request.getSession();
+        String creatOr = (String) session.getAttribute("user.fullName");
+        reimbursement.setCreatOr(creatOr);
 
         reimbursementService.insertTreimbursement(reimbursement);
         return "redirect:/page/reimbursement/listAll";

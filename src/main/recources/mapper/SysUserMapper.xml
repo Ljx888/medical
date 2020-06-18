@@ -11,6 +11,7 @@
         <result property="status" column="status"/>
         <result property="agenCode" column="agen_code"/>
         <association property="init" column="agen_code" javaType="com.gx.wuzhou.medical.domain.Institution" resultMap="InitResult"/>
+        <association property="role" column="role_id" javaType="com.gx.wuzhou.medical.domain.SysRole" resultMap="SysRoleResult"/>
     </resultMap>
 
     <resultMap id="InitResult" type="Institution">
@@ -18,11 +19,18 @@
         <result property="agenName" column="agen_name"/>
     </resultMap>
 
+    <resultMap id="SysRoleResult" type="SysRole">
+        <result property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+
     <select id="selectUserIdAndPwd" parameterType="SysUser" resultMap="SysUserResult">
-        select * from t_user
+        select a.*, c.role_id, c.role_name from t_user a
+        left join t_user_role b on a.user_id = b.user_id
+        left join t_role c on b.role_id = c.role_id
         <where>
-            <if test="userId != null and userId != ''">user_id = #{userId}</if>
-            <if test="pwd !=null and pwd != ''">AND pwd = #{pwd}</if>
+            <if test="userId != null and userId != ''">a.user_id = #{userId}</if>
+            <if test="pwd !=null and pwd != ''">AND a.pwd = #{pwd}</if>
         </where>
     </select>
 
