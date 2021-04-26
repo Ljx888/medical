@@ -18,7 +18,7 @@
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
     <commons-lang-version>2.6</commons-lang-version>
-    <commons-io-version>2.5</commons-io-version>
+    <commons-io-version>2.7</commons-io-version>
     <pagehelper.boot.version>1.2.5</pagehelper.boot.version>
   </properties>
   <!-- 阿里云maven仓库 -->
